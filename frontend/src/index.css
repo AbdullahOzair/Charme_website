@@ -1,0 +1,297 @@
+/* Google Fonts - Elegant serif for handmade aesthetic */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply font-sans text-gray-900 antialiased bg-neutral-50;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cormorant Garamond', serif;
+    @apply font-medium tracking-tight;
+  }
+  
+  /* Minimal aesthetic - remove default focus rings, add subtle ones */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-neutral-900 ring-offset-2;
+  }
+}
+
+@layer components {
+  /* Minimal button styles for handmade aesthetic */
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 text-sm font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  
+  .btn-primary {
+    @apply btn bg-neutral-900 text-white hover:bg-neutral-800 focus:ring-neutral-900 rounded-sm;
+  }
+  
+  .btn-secondary {
+    @apply btn bg-neutral-700 text-white hover:bg-neutral-600 focus:ring-neutral-700 rounded-sm;
+  }
+  
+  .btn-outline {
+    @apply btn border border-neutral-900 text-neutral-900 hover:bg-neutral-900 hover:text-white focus:ring-neutral-900 rounded-sm;
+  }
+  
+  .btn-ghost {
+    @apply btn text-neutral-700 hover:bg-neutral-100 focus:ring-neutral-500 rounded-sm;
+  }
+
+  /* Minimal form inputs */
+  .input {
+    @apply w-full px-4 py-3 border border-neutral-300 rounded-sm bg-white focus:outline-none focus:ring-1 focus:ring-neutral-900 focus:border-neutral-900 transition-all duration-200 text-sm;
+  }
+  
+  .input-error {
+    @apply input border-red-500 focus:ring-red-500;
+  }
+  
+  .label {
+    @apply block text-xs font-medium text-neutral-700 mb-2 uppercase tracking-wide;
+  }
+  
+  /* Minimal card design */
+  .card {
+    @apply bg-white rounded-sm shadow-sm hover:shadow-md transition-all duration-300 border border-neutral-100;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Elegant typography for handmade products */
+  .section-title {
+    @apply text-3xl md:text-5xl font-light text-neutral-900 tracking-tight;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  
+  .section-subtitle {
+    @apply text-sm md:text-base text-neutral-600 mt-3 font-light tracking-wide;
+  }
+  
+  /* Minimal badges */
+  .badge {
+    @apply inline-flex items-center px-2 py-1 rounded-sm text-[10px] font-medium uppercase tracking-wider;
+  }
+  
+  .badge-sale {
+    @apply badge bg-neutral-900 text-white;
+  }
+  
+  .badge-new {
+    @apply badge bg-white text-neutral-900 border border-neutral-900;
+  }
+  
+  .badge-bestseller {
+    @apply badge bg-amber-50 text-amber-900 border border-amber-200;
+  }
+  
+  /* Handmade aesthetic utilities */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-br from-neutral-900 to-neutral-600;
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 2.5s ease-in-out infinite;
+    background: linear-gradient(90deg, #f5f5f5 25%, #e8e8e8 50%, #f5f5f5 75%);
+    background-size: 200% 100%;
+  }
+  
+  /* Fade in animation */
+  .fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  /* Hover lift effect */
+  .hover-lift {
+    @apply transition-transform duration-300;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-4px);
+  }
+}
+
+@layer utilities {
+  /* Loading skeleton */
+  .skeleton {
+    @apply animate-pulse bg-neutral-200 rounded-sm;
+  }
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Gallery & Image Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.4s ease-out;
+}
+
+/* New Animations for About & Contact Pages */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-20px) scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+.animate-slideInUp {
+  animation: slideInUp 0.8s ease-out;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.8s ease-out;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.8s ease-out;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Animation delays support */
+[style*="animationDelay"] {
+  animation-fill-mode: both;
+}
+
+/* Minimal custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fafafa;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4d4d4;
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a3a3a3;
+}
+
+/* Selection color */
+::selection {
+  background: #262626;
+  color: #ffffff;
+}
+
+/* Remove spinner from number inputs */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
