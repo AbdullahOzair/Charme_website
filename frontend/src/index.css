@@ -1,297 +1,447 @@
-/* Google Fonts - Elegant serif for handmade aesthetic */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+/* FlairCharmz - Dreamy Fairytale Jewelry */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================
+   DREAMY FAIRYTALE COLOR PALETTE
+   - Soft Rose: #F8E8E8
+   - Blush Pink: #E8C4C4  
+   - Dusty Rose: #CE9B9B
+   - Rose Gold: #B76E79
+   - Champagne: #F7E7CE
+   - Soft Gold: #D4A574
+   - Ivory: #FFFEF9
+   - Charcoal: #2D2D2D
+   ============================================ */
+
 @layer base {
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400&family=Quicksand:wght@300;400;500;600&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
-    @apply font-sans text-gray-900 antialiased bg-neutral-50;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+    color: #2D2D2D;
+    background-color: #FFFEF9;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Cormorant Garamond', serif;
-    @apply font-medium tracking-tight;
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #2D2D2D;
   }
-  
-  /* Minimal aesthetic - remove default focus rings, add subtle ones */
-  *:focus-visible {
-    @apply outline-none ring-2 ring-neutral-900 ring-offset-2;
+
+  p {
+    font-family: 'Quicksand', sans-serif;
   }
 }
 
 @layer components {
-  /* Minimal button styles for handmade aesthetic */
-  .btn {
-    @apply inline-flex items-center justify-center px-6 py-3 text-sm font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
-  }
-  
+  /* ============================================
+     BUTTONS - Dreamy Style
+     ============================================ */
   .btn-primary {
-    @apply btn bg-neutral-900 text-white hover:bg-neutral-800 focus:ring-neutral-900 rounded-sm;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, #B76E79 0%, #CE9B9B 100%);
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 15px rgba(183, 110, 121, 0.3);
+    position: relative;
+    overflow: hidden;
   }
-  
-  .btn-secondary {
-    @apply btn bg-neutral-700 text-white hover:bg-neutral-600 focus:ring-neutral-700 rounded-sm;
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.6s ease;
   }
-  
+
+  .btn-primary:hover::before {
+    left: 100%;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(183, 110, 121, 0.4);
+  }
+
   .btn-outline {
-    @apply btn border border-neutral-900 text-neutral-900 hover:bg-neutral-900 hover:text-white focus:ring-neutral-900 rounded-sm;
-  }
-  
-  .btn-ghost {
-    @apply btn text-neutral-700 hover:bg-neutral-100 focus:ring-neutral-500 rounded-sm;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 32px;
+    background: transparent;
+    color: #B76E79;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 2px solid #B76E79;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
   }
 
-  /* Minimal form inputs */
+  .btn-outline:hover {
+    background: linear-gradient(135deg, #B76E79 0%, #CE9B9B 100%);
+    color: white;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(183, 110, 121, 0.3);
+  }
+
+  /* ============================================
+     INPUTS - Soft & Elegant
+     ============================================ */
   .input {
-    @apply w-full px-4 py-3 border border-neutral-300 rounded-sm bg-white focus:outline-none focus:ring-1 focus:ring-neutral-900 focus:border-neutral-900 transition-all duration-200 text-sm;
+    width: 100%;
+    padding: 14px 20px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+    color: #2D2D2D;
+    background: white;
+    border: 2px solid #E8C4C4;
+    border-radius: 12px;
+    outline: none;
+    transition: all 0.3s ease;
   }
-  
-  .input-error {
-    @apply input border-red-500 focus:ring-red-500;
+
+  .input:focus {
+    border-color: #B76E79;
+    box-shadow: 0 0 0 4px rgba(183, 110, 121, 0.1);
   }
-  
-  .label {
-    @apply block text-xs font-medium text-neutral-700 mb-2 uppercase tracking-wide;
+
+  .input::placeholder {
+    color: #CE9B9B;
   }
-  
-  /* Minimal card design */
+
+  /* ============================================
+     CARDS - Dreamy Soft Cards
+     ============================================ */
   .card {
-    @apply bg-white rounded-sm shadow-sm hover:shadow-md transition-all duration-300 border border-neutral-100;
-  }
-  
-  .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(183, 110, 121, 0.08);
+    transition: all 0.5s ease;
   }
 
-  /* Elegant typography for handmade products */
+  .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(183, 110, 121, 0.15);
+  }
+
+  /* ============================================
+     SECTION TITLES - Elegant Typography
+     ============================================ */
   .section-title {
-    @apply text-3xl md:text-5xl font-light text-neutral-900 tracking-tight;
-    font-family: 'Cormorant Garamond', serif;
-  }
-  
-  .section-subtitle {
-    @apply text-sm md:text-base text-neutral-600 mt-3 font-light tracking-wide;
-  }
-  
-  /* Minimal badges */
-  .badge {
-    @apply inline-flex items-center px-2 py-1 rounded-sm text-[10px] font-medium uppercase tracking-wider;
-  }
-  
-  .badge-sale {
-    @apply badge bg-neutral-900 text-white;
-  }
-  
-  .badge-new {
-    @apply badge bg-white text-neutral-900 border border-neutral-900;
-  }
-  
-  .badge-bestseller {
-    @apply badge bg-amber-50 text-amber-900 border border-amber-200;
-  }
-  
-  /* Handmade aesthetic utilities */
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-br from-neutral-900 to-neutral-600;
-  }
-  
-  .animate-shimmer {
-    animation: shimmer 2.5s ease-in-out infinite;
-    background: linear-gradient(90deg, #f5f5f5 25%, #e8e8e8 50%, #f5f5f5 75%);
-    background-size: 200% 100%;
-  }
-  
-  /* Fade in animation */
-  .fade-in {
-    animation: fadeIn 0.5s ease-in-out;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: #2D2D2D;
+    text-align: center;
   }
 
-  /* Hover lift effect */
-  .hover-lift {
-    @apply transition-transform duration-300;
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: 3rem;
+    }
   }
-  
-  .hover-lift:hover {
-    transform: translateY(-4px);
+
+  .section-subtitle {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: #CE9B9B;
+    text-align: center;
+    margin-top: 8px;
+  }
+
+  /* ============================================
+     BADGES - Soft & Pretty
+     ============================================ */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-radius: 20px;
+  }
+
+  .badge-new {
+    background: linear-gradient(135deg, #F7E7CE 0%, #D4A574 100%);
+    color: #5C4A32;
+  }
+
+  .badge-sale {
+    background: linear-gradient(135deg, #B76E79 0%, #CE9B9B 100%);
+    color: white;
+  }
+
+  /* ============================================
+     CONTAINER
+     ============================================ */
+  .container-custom {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  @media (min-width: 768px) {
+    .container-custom {
+      padding: 0 40px;
+    }
+  }
+
+  /* ============================================
+     SPARKLE EFFECT ON HOVER
+     ============================================ */
+  .sparkle-hover {
+    position: relative;
+  }
+
+  .sparkle-hover::after {
+    content: '✦';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 12px;
+    color: #D4A574;
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+    transition: all 0.3s ease;
+  }
+
+  .sparkle-hover:hover::after {
+    opacity: 1;
+    transform: scale(1) rotate(20deg);
+    animation: sparkle-twinkle 0.6s ease-in-out infinite;
+  }
+
+  /* ============================================
+     PRODUCT CARD ACTION BUTTONS
+     ============================================ */
+  .product-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: none;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: #B76E79;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .product-action-btn:hover {
+    background: linear-gradient(135deg, #B76E79 0%, #CE9B9B 100%);
+    color: white;
+  }
+
+  .product-action-btn svg {
+    stroke-width: 2px;
+  }
+
+  .product-heart-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    border: none;
+    color: #CE9B9B;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .product-heart-btn:hover {
+    background: linear-gradient(135deg, #B76E79 0%, #CE9B9B 100%);
+    color: white;
+    transform: scale(1.1);
+  }
+
+  .product-heart-btn svg {
+    stroke-width: 2px;
   }
 }
 
 @layer utilities {
-  /* Loading skeleton */
-  .skeleton {
-    @apply animate-pulse bg-neutral-200 rounded-sm;
+  /* Dreamy text gradient */
+  .text-gradient {
+    background: linear-gradient(135deg, #B76E79 0%, #D4A574 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Soft shadow */
+  .shadow-dreamy {
+    box-shadow: 0 10px 40px rgba(183, 110, 121, 0.1);
+  }
+
+  /* Fade in animation */
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Sparkle twinkle animation */
+  @keyframes sparkle-twinkle {
+    0%, 100% { opacity: 1; transform: scale(1) rotate(20deg); }
+    50% { opacity: 0.5; transform: scale(1.2) rotate(25deg); }
+  }
+
+  /* Floating animation for butterfly */
+  @keyframes butterfly-float {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-8px) rotate(5deg); }
+  }
+
+  .animate-butterfly {
+    animation: butterfly-float 3s ease-in-out infinite;
+  }
+
+  /* Glitter sparkle keyframes */
+  @keyframes glitter {
+    0%, 100% { opacity: 0; transform: scale(0); }
+    50% { opacity: 1; transform: scale(1); }
+  }
+
+  /* Shimmer effect */
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  .shimmer-text {
+    background: linear-gradient(90deg, #B76E79, #D4A574, #B76E79, #D4A574);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s linear infinite;
   }
 }
 
-/* Animations */
-@keyframes shimmer {
+/* ============================================
+   SPARKLE CURSOR TRAIL
+   ============================================ */
+.sparkle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  font-size: 14px;
+  color: #D4A574;
+  animation: sparkle-fade 0.8s ease-out forwards;
+}
+
+@keyframes sparkle-fade {
   0% {
-    background-position: 200% 0;
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
   }
   100% {
-    background-position: -200% 0;
-  }
-}
-
-@keyframes fadeIn {
-  from {
     opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+    transform: scale(0) rotate(180deg);
   }
 }
 
-/* Gallery & Image Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.3s ease-out;
-}
-
-.animate-scaleIn {
-  animation: scaleIn 0.4s ease-out;
-}
-
-/* New Animations for About & Contact Pages */
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0) scale(1);
-    opacity: 0.6;
-  }
-  50% {
-    transform: translateY(-20px) scale(1.05);
-    opacity: 0.8;
-  }
-}
-
-.animate-slideInUp {
-  animation: slideInUp 0.8s ease-out;
-}
-
-.animate-slideInLeft {
-  animation: slideInLeft 0.8s ease-out;
-}
-
-.animate-slideInRight {
-  animation: slideInRight 0.8s ease-out;
-}
-
-.animate-fadeInUp {
-  animation: fadeInUp 0.6s ease-out;
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-/* Animation delays support */
-[style*="animationDelay"] {
-  animation-fill-mode: both;
-}
-
-/* Minimal custom scrollbar */
+/* ============================================
+   SCROLLBAR - Dreamy Style
+   ============================================ */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #fafafa;
+  background: #F8E8E8;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d4d4d4;
-  border-radius: 0;
+  background: linear-gradient(180deg, #CE9B9B, #B76E79);
+  border-radius: 10px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #a3a3a3;
-}
-
-/* Selection color */
+/* ============================================
+   SELECTION
+   ============================================ */
 ::selection {
-  background: #262626;
-  color: #ffffff;
+  background: #E8C4C4;
+  color: #2D2D2D;
 }
 
-/* Remove spinner from number inputs */
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+/* ============================================
+   BUTTERFLY ICON STYLING
+   ============================================ */
+.butterfly-icon {
+  display: inline-block;
+  transition: all 0.3s ease;
 }
 
-input[type='number'] {
-  -moz-appearance: textfield;
+.butterfly-icon:hover {
+  animation: butterfly-float 0.6s ease-in-out;
 }
+
+/* Special Z Letter Styling */
+.letter-z {
+  font-style: italic;
+  background: linear-gradient(135deg, #D4A574 0%, #B76E79 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+}
+

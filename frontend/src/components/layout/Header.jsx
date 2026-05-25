@@ -60,7 +60,7 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex-shrink-0">
             <h1 className="text-2xl md:text-3xl font-display font-semibold text-primary-600">
-              Charmé
+              FlairCharmz
             </h1>
           </Link>
 

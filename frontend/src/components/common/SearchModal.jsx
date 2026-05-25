@@ -52,7 +52,7 @@ const SearchModal = () => {
     'Beaded bracelets',
     'Gold chain',
     'Pearl bracelet',
-    'Charm bracelet',
+    'FlairCharmz bracelet',
     'Handmade',
   ]
 

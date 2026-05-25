@@ -1,5 +1,5 @@
 /**
- * About Page - Charmé Story with Animations
+ * About Page - FlairCharmz Story with Animations
  */
 import { Heart, Sparkles, Users, Award } from 'lucide-react';
 
@@ -17,7 +17,7 @@ const About = () => {
               Our Story
             </h1>
             <p className="text-lg md:text-xl text-neutral-600 font-light leading-relaxed animate-fadeIn" style={{ animationDelay: '0.2s' }}>
-              Handmade stone jewelry crafted with heart, creativity, and timeless charm
+              Handmade stone jewelry crafted with heart, creativity, and timeless elegance
             </p>
           </div>
         </div>
@@ -36,7 +36,7 @@ const About = () => {
             <div className="prose prose-lg max-w-none mb-16">
               <div className="animate-slideInUp">
                 <p className="text-neutral-700 leading-relaxed mb-6">
-                  Welcome to <span className="font-semibold text-neutral-900">Charmé</span>, where every piece of jewelry is made by hand and filled with meaning. 
+                  Welcome to <span className="font-semibold text-neutral-900">FlairCharmz</span>, where every piece of jewelry is made by hand and filled with meaning. 
                   We create beautiful stone bracelets and necklaces designed to reflect personality, style, and individuality.
                 </p>
               </div>
@@ -51,7 +51,7 @@ const About = () => {
               <div className="animate-slideInUp" style={{ animationDelay: '0.2s' }}>
                 <p className="text-neutral-700 leading-relaxed">
                   Because our jewelry is handmade in small batches, no two pieces are exactly the same. 
-                  That’s what makes Charmé special — jewelry that feels personal, unique, and made just for you.
+                  That's what makes FlairCharmz special — jewelry that feels personal, unique, and made just for you.
                 </p>
               </div>
             </div>
@@ -111,7 +111,7 @@ const About = () => {
                   </h3>
                 </div>
                 <p className="text-neutral-600 leading-relaxed">
-                  Strong threads, durable wires, and carefully chosen materials ensure your favorite Charmé pieces stay beautiful for years.
+                  Strong threads, durable wires, and carefully chosen materials ensure your favorite FlairCharmz pieces stay beautiful for years.
                 </p>
               </div>
 

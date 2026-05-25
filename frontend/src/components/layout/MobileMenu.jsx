@@ -45,7 +45,7 @@ const MobileMenu = () => {
         <div className="flex items-center justify-between p-4 border-b">
           <Link to="/" onClick={closeMobileMenu}>
             <h2 className="text-xl font-display font-semibold text-primary-600">
-              Charmé
+              FlairCharmz
             </h2>
           </Link>
           <button 
