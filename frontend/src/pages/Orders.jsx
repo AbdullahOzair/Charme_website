@@ -20,7 +20,8 @@ const Orders = () => {
     try {
       setLoading(true);
       const response = await orderService.getAll();
-      setOrders(response.data || []);
+      const data = response.data;
+      setOrders(Array.isArray(data) ? data : (data?.results ?? []));
     } catch (error) {
       console.error('Error fetching orders:', error);
       toast.error('Failed to load orders');
@@ -29,9 +30,27 @@ const Orders = () => {
     }
   };
 
-  const getStatusIcon = (status) => {
+  // Derive a human-readable label from order + payment context
+  const getStatusLabel = (order) => {
+    const { status, payment_method, payment_status } = order;
+    if (status === 'pending') {
+      if (payment_method === 'cod') return 'Confirmed — Pay on Delivery';
+      if (payment_status === 'pending') return 'Pending Payment';
+      return 'Confirmed';
+    }
+    if (status === 'paid') return 'Payment Confirmed';
+    const map = { processing: 'Processing', shipped: 'Shipped', delivered: 'Delivered', cancelled: 'Cancelled' };
+    return map[status] ?? status.charAt(0).toUpperCase() + status.slice(1);
+  };
+
+  const getStatusIcon = (order) => {
+    const { status, payment_method } = order;
+    if (status === 'pending' && payment_method === 'cod')
+      return <CheckCircle className="w-5 h-5 text-green-600" />;
+    if (status === 'pending')
+      return <Clock className="w-5 h-5 text-yellow-600" />;
     const icons = {
-      pending: <Clock className="w-5 h-5 text-yellow-600" />,
+      paid: <CheckCircle className="w-5 h-5 text-green-600" />,
       processing: <Package className="w-5 h-5 text-blue-600" />,
       shipped: <Truck className="w-5 h-5 text-purple-600" />,
       delivered: <CheckCircle className="w-5 h-5 text-green-600" />,
@@ -40,9 +59,12 @@ const Orders = () => {
     return icons[status] || <Package className="w-5 h-5 text-gray-600" />;
   };
 
-  const getStatusColor = (status) => {
+  const getStatusColor = (order) => {
+    const { status, payment_method } = order;
+    if (status === 'pending' && payment_method === 'cod') return 'bg-green-100 text-green-800';
+    if (status === 'pending') return 'bg-yellow-100 text-yellow-800';
     const colors = {
-      pending: 'bg-yellow-100 text-yellow-800',
+      paid: 'bg-green-100 text-green-800',
       processing: 'bg-blue-100 text-blue-800',
       shipped: 'bg-purple-100 text-purple-800',
       delivered: 'bg-green-100 text-green-800',
@@ -59,6 +81,9 @@ const Orders = () => {
       day: 'numeric',
     });
   };
+
+  // Guard: ensure orders is always an array even if the API shape changes
+  const orderList = Array.isArray(orders) ? orders : [];
 
   if (loading) {
     return (
@@ -87,7 +112,7 @@ const Orders = () => {
         </div>
 
         {/* Orders List */}
-        {orders.length === 0 ? (
+        {orderList.length === 0 ? (
           <div className="card p-12 text-center">
             <Package className="w-16 h-16 mx-auto text-neutral-400 mb-4" />
             <h3 className="text-xl font-medium text-neutral-900 mb-2">No Orders Yet</h3>
@@ -100,7 +125,7 @@ const Orders = () => {
           </div>
         ) : (
           <div className="space-y-4">
-            {orders.map((order) => (
+            {orderList.map((order) => (
               <div
                 key={order.id}
                 className="card p-6 hover:shadow-lg transition-all duration-300"
@@ -109,7 +134,7 @@ const Orders = () => {
                   {/* Order Info */}
                   <div className="flex items-start gap-4">
                     <div className="p-3 bg-neutral-100 rounded-lg">
-                      {getStatusIcon(order.status)}
+                      {getStatusIcon(order)}
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-neutral-900 mb-1">
@@ -119,8 +144,8 @@ const Orders = () => {
                         Placed on {formatDate(order.created_at)}
                       </p>
                       <div className="flex items-center gap-2 mt-2">
-                        <span className={`text-xs px-3 py-1 rounded-full font-medium ${getStatusColor(order.status)}`}>
-                          {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                        <span className={`text-xs px-3 py-1 rounded-full font-medium ${getStatusColor(order)}`}>
+                          {getStatusLabel(order)}
                         </span>
                         <span className="text-xs text-neutral-500">
                           {order.items?.length || 0} item(s)
@@ -213,12 +238,17 @@ const Orders = () => {
               {/* Order Status */}
               <div className="mb-6 p-4 bg-neutral-50 rounded-lg">
                 <div className="flex items-center gap-3">
-                  {getStatusIcon(selectedOrder.status)}
+                  {getStatusIcon(selectedOrder)}
                   <div>
                     <p className="text-sm text-neutral-600">Order Status</p>
-                    <p className="text-lg font-medium text-neutral-900 capitalize">
-                      {selectedOrder.status}
+                    <p className="text-lg font-medium text-neutral-900">
+                      {getStatusLabel(selectedOrder)}
                     </p>
+                    {selectedOrder.payment_method && (
+                      <p className="text-xs text-neutral-500 mt-0.5 capitalize">
+                        Payment: {selectedOrder.payment_method === 'cod' ? 'Cash on Delivery' : selectedOrder.payment_method}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>

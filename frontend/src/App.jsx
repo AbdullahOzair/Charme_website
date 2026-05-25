@@ -19,15 +19,20 @@ import Register from './pages/Register';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Orders from './pages/Orders';
+import Configurator from './pages/Configurator';
+import SavedDesigns from './pages/SavedDesigns';
+import ProfilePage from './pages/ProfilePage';
+import WishlistPage from './pages/WishlistPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuthStore();
-  
+
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
-  
+
   return children;
 };
 
@@ -35,7 +40,7 @@ function App() {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      
+
       <main className="flex-grow">
         <Routes>
           {/* Public Routes */}
@@ -47,7 +52,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/cart" element={<Cart />} />
-          
+          <Route path="/configurator" element={<Configurator />} />
+
           {/* Protected Routes */}
           <Route
             path="/checkout"
@@ -65,16 +71,39 @@ function App() {
               </ProtectedRoute>
             }
           />
-          
+          <Route
+            path="/saved-designs"
+            element={
+              <ProtectedRoute>
+                <SavedDesigns />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/wishlist"
+            element={
+              <ProtectedRoute>
+                <WishlistPage />
+              </ProtectedRoute>
+            }
+          />
+
           {/* 404 */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
-      
+
       <Footer />
     </div>
   );
 }
 
 export default App;
-

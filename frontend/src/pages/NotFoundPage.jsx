@@ -14,7 +14,7 @@ const NotFoundPage = () => {
           <Link to="/" className="btn-primary">
             Go Home
           </Link>
-          <Link to="/products" className="btn-outline">
+          <Link to="/shop" className="btn-outline">
             Browse Products
           </Link>
         </div>

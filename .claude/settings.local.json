@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la \"d:\\\\\\\\Websites\\\\\\\\new\\\\\\\\Charme_website\\\\\\\\frontend\\\\\\\\src\\\\\\\\pages\\\\\\\\\")",
+      "Bash(ls -la \"d:\\\\\\\\Websites\\\\\\\\new\\\\\\\\Charme_website\\\\\\\\frontend\\\\\\\\src\\\\\\\\stores\\\\\\\\\")",
+      "Bash(find \"d:\\\\\\\\Websites\\\\\\\\new\\\\\\\\Charme_website\\\\\\\\frontend\\\\\\\\src\" -name \"*.jsx\" -o -name \"*.tsx\")",
+      "Bash(ls -la \"d:\\\\\\\\Websites\\\\\\\\new\\\\\\\\Charme_website\\\\\\\\backend\\\\\\\\apps\\\\\\\\\")",
+      "Bash(ls -la \"d:\\\\\\\\Websites\\\\\\\\new\\\\\\\\Charme_website\\\\\\\\backend\\\\\\\\\")",
+      "Bash(find \"d:\\\\\\\\Websites\\\\\\\\new\\\\\\\\Charme_website\\\\\\\\backend\\\\\\\\config\\\\\\\\settings\" -type f)",
+      "Bash(find \"d:\\\\\\\\Websites\\\\\\\\new\\\\\\\\Charme_website\\\\\\\\backend\\\\\\\\config\" -maxdepth 1 -type f)",
+      "Bash(find \"d:\\\\\\\\Websites\\\\\\\\new\\\\\\\\Charme_website\\\\\\\\backend\\\\\\\\apps\" -maxdepth 2 -name \"models.py\" -o -name \"views.py\" -o -name \"urls.py\")",
+      "Bash(ls -la \"d:\\\\\\\\Websites\\\\\\\\new\\\\\\\\Charme_website\\\\\\\\frontend\\\\\\\\\")",
+      "Bash(find \"d:\\\\\\\\Websites\\\\\\\\new\\\\\\\\Charme_website\\\\\\\\frontend\\\\\\\\src\" -type f -name \"*.jsx\" -o -name \"*.js\")",
+      "Bash(find \"d:\\\\\\\\Websites\\\\\\\\new\\\\\\\\Charme_website\\\\\\\\frontend\\\\\\\\src\\\\\\\\components\" -maxdepth 1 -type f -o -type d)",
+      "Bash(find \"d:\\\\\\\\Websites\\\\\\\\new\\\\\\\\Charme_website\\\\\\\\frontend\\\\\\\\src\\\\\\\\services\" -type f)",
+      "Bash(find \"d:\\\\\\\\Websites\\\\\\\\new\\\\\\\\Charme_website\\\\\\\\frontend\\\\\\\\src\\\\\\\\hooks\" -type f)",
+      "Bash(git fetch *)"
+    ]
+  }
+}

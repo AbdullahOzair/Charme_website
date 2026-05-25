@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from rest_framework.authentication import SessionAuthentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from decimal import Decimal
@@ -15,7 +16,7 @@ from decimal import Decimal
 from .models import Cart, CartItem, Order, OrderItem
 from .serializers import (
     CartSerializer, CartItemSerializer, AddToCartSerializer, UpdateCartItemSerializer,
-    OrderSerializer, CreateOrderSerializer
+    OrderSerializer, CreateOrderSerializer, AddCustomDesignToCartSerializer
 )
 from apps.products.models import Product
 from apps.core.models import StoreSettings
@@ -96,7 +97,7 @@ class CartView(APIView):
     POST /api/v1/cart/     - Add to cart
     DELETE /api/v1/cart/   - Clear cart
     """
-    authentication_classes = [CsrfExemptSessionAuthentication]
+    authentication_classes = [JWTAuthentication, CsrfExemptSessionAuthentication]
     permission_classes = [AllowAny]
     
     def get(self, request):
@@ -151,7 +152,7 @@ class CartItemView(APIView):
     PATCH  /api/v1/cart/items/{id}/  - Update quantity
     DELETE /api/v1/cart/items/{id}/  - Remove item
     """
-    authentication_classes = [CsrfExemptSessionAuthentication]
+    authentication_classes = [JWTAuthentication, CsrfExemptSessionAuthentication]
     permission_classes = [AllowAny]
     
     def patch(self, request, pk):
@@ -182,14 +183,52 @@ class CartItemView(APIView):
     def delete(self, request, pk):
         """Remove item from cart."""
         cart = get_cart(request)
-        
+
         try:
             item = cart.items.get(pk=pk)
             item.delete()
         except CartItem.DoesNotExist:
             return Response({'error': 'Item not found'}, status=status.HTTP_404_NOT_FOUND)
-        
+
         return Response(CartSerializer(cart).data)
+
+
+class AddCustomDesignToCartView(APIView):
+    """
+    POST /api/v1/cart/custom/  - Add a saved custom design to the cart.
+    """
+    authentication_classes = [JWTAuthentication, CsrfExemptSessionAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        from apps.customization.models import CustomDesign
+
+        serializer = AddCustomDesignToCartSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        design_id = serializer.validated_data['custom_design_id']
+        quantity = serializer.validated_data['quantity']
+
+        try:
+            design = CustomDesign.objects.get(id=design_id, user=request.user)
+        except CustomDesign.DoesNotExist:
+            return Response(
+                {'error': 'Custom design not found or does not belong to you'},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        cart = get_cart(request)
+        cart_item = CartItem.objects.create(
+            cart=cart,
+            custom_design=design,
+            quantity=quantity,
+        )
+
+
+        return Response(
+            CartSerializer(cart, context={'request': request}).data,
+            status=status.HTTP_201_CREATED,
+        )
 
 
 # =============================================================================
@@ -285,16 +324,27 @@ class OrderListCreateView(generics.ListCreateAPIView):
         
         # Create order items from cart using discounted prices
         for cart_item in cart.items.all():
-            OrderItem.objects.create(
-                order=order,
-                product=cart_item.product,
-                product_name=cart_item.product.name,
-                product_price=cart_item.product.final_price,  # Use discounted price
-                quantity=cart_item.quantity
-            )
-            # Reduce stock
-            cart_item.product.stock -= cart_item.quantity
-            cart_item.product.save()
+            if cart_item.custom_design:
+                OrderItem.objects.create(
+                    order=order,
+                    product=None,
+                    product_name=f"Custom Jewelry — {cart_item.custom_design.name}",
+                    product_price=cart_item.custom_design.total_price,
+                    quantity=cart_item.quantity,
+                )
+                # Mark design as ordered only after a real order is placed
+                cart_item.custom_design.status = 'ordered'
+                cart_item.custom_design.save(update_fields=['status'])
+            else:
+                OrderItem.objects.create(
+                    order=order,
+                    product=cart_item.product,
+                    product_name=cart_item.product.name,
+                    product_price=cart_item.product.final_price,
+                    quantity=cart_item.quantity,
+                )
+                cart_item.product.stock -= cart_item.quantity
+                cart_item.product.save()
         
         # Clear cart
         cart.items.all().delete()
@@ -322,7 +372,7 @@ class CartSummaryView(APIView):
     """
     GET /api/v1/cart/summary/?coupon=CODE  - Get cart summary with pricing
     """
-    authentication_classes = [CsrfExemptSessionAuthentication]
+    authentication_classes = [JWTAuthentication, CsrfExemptSessionAuthentication]
     permission_classes = [AllowAny]
     
     def get(self, request):
@@ -369,20 +419,41 @@ class CartSummaryView(APIView):
         # Build item data with pricing details
         items_data = []
         for item in items:
-            product = item.product
-            items_data.append({
-                'id': item.id,
-                'product_id': product.id,
-                'product_name': product.name,
-                'product_slug': product.slug,
-                'product_image': request.build_absolute_uri(product.image.url) if product.image else None,
-                'product_price': str(product.final_price),
-                'original_price': str(product.price),
-                'is_on_sale': product.is_on_sale,
-                'discount_percent': str(product.discount_percent) if product.discount_percent else '0',
-                'quantity': item.quantity,
-                'subtotal': str(item.subtotal)
-            })
+            if item.custom_design:
+                design = item.custom_design
+                preview = None
+                if design.preview_image:
+                    preview = request.build_absolute_uri(design.preview_image.url)
+                items_data.append({
+                    'id': item.id,
+                    'item_type': 'custom_design',
+                    'product_id': None,
+                    'product_name': f"Custom Jewelry — {design.name}",
+                    'product_slug': None,
+                    'product_image': preview,
+                    'product_price': str(design.total_price),
+                    'original_price': str(design.total_price),
+                    'is_on_sale': False,
+                    'discount_percent': '0',
+                    'quantity': item.quantity,
+                    'subtotal': str(item.subtotal),
+                })
+            else:
+                product = item.product
+                items_data.append({
+                    'id': item.id,
+                    'item_type': 'product',
+                    'product_id': product.id,
+                    'product_name': product.name,
+                    'product_slug': product.slug,
+                    'product_image': request.build_absolute_uri(product.image.url) if product.image else None,
+                    'product_price': str(product.final_price),
+                    'original_price': str(product.price),
+                    'is_on_sale': product.is_on_sale,
+                    'discount_percent': str(product.discount_percent) if product.discount_percent else '0',
+                    'quantity': item.quantity,
+                    'subtotal': str(item.subtotal),
+                })
         
         return Response({
             'success': True,
@@ -403,7 +474,7 @@ class ApplyCouponView(APIView):
     """
     POST /api/v1/cart/apply-coupon/  - Validate and apply coupon
     """
-    authentication_classes = [CsrfExemptSessionAuthentication]
+    authentication_classes = [JWTAuthentication, CsrfExemptSessionAuthentication]
     permission_classes = [AllowAny]
     
     def post(self, request):

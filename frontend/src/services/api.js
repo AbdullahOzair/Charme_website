@@ -5,20 +5,65 @@ import axios from 'axios';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
 
+// Read a token from localStorage, falling back to the Zustand auth-storage
+// so a rehydrated session (where standalone keys were cleared by a prior
+// failed refresh) can still authenticate.
+const getStoredToken = (key) => {
+  const direct = localStorage.getItem(key);
+  if (direct) return direct;
+  try {
+    const zustand = JSON.parse(localStorage.getItem('auth-storage') ?? '{}');
+    return key === 'access_token'
+      ? zustand?.state?.accessToken ?? null
+      : zustand?.state?.refreshToken ?? null;
+  } catch {
+    return null;
+  }
+};
+
+// Keep the standalone keys AND the Zustand auth-storage in sync
+const syncTokens = (access, refresh) => {
+  if (access) localStorage.setItem('access_token', access);
+  if (refresh) localStorage.setItem('refresh_token', refresh);
+  try {
+    const stored = JSON.parse(localStorage.getItem('auth-storage') ?? '{}');
+    if (stored?.state) {
+      if (access) stored.state.accessToken = access;
+      if (refresh) stored.state.refreshToken = refresh;
+      localStorage.setItem('auth-storage', JSON.stringify(stored));
+    }
+  } catch { /* ignore */ }
+};
+
+const clearAuthTokens = () => {
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('refresh_token');
+  try {
+    const stored = JSON.parse(localStorage.getItem('auth-storage') ?? '{}');
+    if (stored?.state) {
+      stored.state.accessToken = null;
+      stored.state.refreshToken = null;
+      stored.state.isAuthenticated = false;
+      stored.state.user = null;
+      localStorage.setItem('auth-storage', JSON.stringify(stored));
+    }
+  } catch { /* ignore */ }
+};
+
 // Create axios instance
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 10000,
+  timeout: 30000,
   withCredentials: true, // Send cookies for session-based cart
 });
 
 // Request interceptor - Add auth token
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('access_token');
+    const token = getStoredToken('access_token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -38,23 +83,22 @@ api.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const refreshToken = localStorage.getItem('refresh_token');
+        const refreshToken = getStoredToken('refresh_token');
         if (refreshToken) {
           const response = await axios.post(`${API_BASE_URL}/auth/token/refresh/`, {
             refresh: refreshToken,
           });
 
-          const { access } = response.data;
-          localStorage.setItem('access_token', access);
+          const { access, refresh } = response.data;
+          syncTokens(access, refresh);
 
           // Retry original request
           originalRequest.headers.Authorization = `Bearer ${access}`;
           return api(originalRequest);
         }
       } catch (refreshError) {
-        // Refresh failed, logout
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
+        // Refresh failed — clear everything and send to login
+        clearAuthTokens();
         window.location.href = '/login';
         return Promise.reject(refreshError);
       }

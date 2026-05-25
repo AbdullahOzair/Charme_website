@@ -98,6 +98,13 @@ const useAuthStore = create(
         }
       },
 
+      // Update profile
+      updateProfile: async (profileData) => {
+        const response = await authService.updateProfile(profileData);
+        set({ user: response.data });
+        return response.data;
+      },
+
       // Clear error
       clearError: () => set({ error: null }),
     }),

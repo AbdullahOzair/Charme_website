@@ -10,14 +10,17 @@ from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    
+
     # API Routes
     path('api/v1/auth/', include('apps.accounts.urls')),
     path('api/v1/products/', include('apps.products.urls')),
-    path('api/v1/', include('apps.orders.urls')),  # Cart & Orders
-    path('api/v1/payments/', include('apps.payments.urls')),  # Stripe Payments
-    path('api/v1/', include('apps.core.urls')),  # Core (Contact, etc.)
-    
+    path('api/v1/', include('apps.orders.urls')),          # Cart & Orders
+    path('api/v1/payments/', include('apps.payments.urls')),
+    path('api/v1/', include('apps.core.urls')),             # Contact, etc.
+    path('api/v1/customization/', include('apps.customization.urls')),
+    path('api/v1/accessories/', include('apps.accessories.urls')),
+    path('api/v1/configurator/', include('apps.configurator.urls')),
+
     # JWT Token Refresh
     path('api/v1/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

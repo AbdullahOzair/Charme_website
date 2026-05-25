@@ -100,7 +100,7 @@ const WishlistItem = ({ item, onRemove, onAddToCart }) => {
   return (
     <div className="group card overflow-hidden">
       {/* Image */}
-      <Link to={`/products/${product.slug}`} className="block relative aspect-square">
+      <Link to={`/product/${product.slug}`} className="block relative aspect-square">
         <img
           src={product.image || '/images/placeholder.jpg'}
           alt={product.name}
@@ -131,7 +131,7 @@ const WishlistItem = ({ item, onRemove, onAddToCart }) => {
 
       {/* Info */}
       <div className="p-4">
-        <Link to={`/products/${product.slug}`}>
+        <Link to={`/product/${product.slug}`}>
           <h3 className="font-medium text-gray-900 group-hover:text-primary-600 transition-colors line-clamp-2">
             {product.name}
           </h3>

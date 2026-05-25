@@ -363,6 +363,13 @@ const Navbar = () => {
                           My Orders
                         </Link>
                         <Link
+                          to="/saved-designs"
+                          className="block px-5 py-3 text-sm transition-all duration-300 hover:bg-rose-50 hover:pl-7"
+                          style={{ color: '#5C5C5C', fontFamily: "'Quicksand', sans-serif" }}
+                        >
+                          My Designs ✨
+                        </Link>
+                        <Link
                           to="/wishlist"
                           className="block px-5 py-3 text-sm transition-all duration-300 hover:bg-rose-50 hover:pl-7"
                           style={{ color: '#5C5C5C', fontFamily: "'Quicksand', sans-serif" }}
@@ -490,6 +497,14 @@ const Navbar = () => {
                     style={{ color: '#5C5C5C', fontFamily: "'Quicksand', sans-serif" }}
                   >
                     My Account
+                  </Link>
+                  <Link
+                    to="/saved-designs"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block py-3 text-sm uppercase tracking-widest hover:text-rose-600 transition-colors"
+                    style={{ color: '#5C5C5C', fontFamily: "'Quicksand', sans-serif" }}
+                  >
+                    My Designs ✨
                   </Link>
                   <Link
                     to="/wishlist"

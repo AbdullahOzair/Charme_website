@@ -42,21 +42,33 @@ class Cart(models.Model):
 
 
 class CartItem(models.Model):
-    """Individual items in cart."""
+    """Individual items in cart — either a regular product or a custom design."""
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
-    product = models.ForeignKey('products.Product', on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        'products.Product', on_delete=models.CASCADE, null=True, blank=True
+    )
+    custom_design = models.ForeignKey(
+        'customization.CustomDesign',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='cart_items',
+    )
     quantity = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ['cart', 'product']
+        unique_together = ['cart', 'product']  # only enforced when product is not null
 
     def __str__(self):
+        if self.custom_design:
+            return f"{self.quantity}x [Custom] {self.custom_design.name}"
         return f"{self.quantity}x {self.product.name}"
 
     @property
     def subtotal(self):
-        """Calculate subtotal using final price (discounted if applicable)."""
+        if self.custom_design:
+            return self.custom_design.total_price * self.quantity
         return self.product.final_price * self.quantity
 
 
