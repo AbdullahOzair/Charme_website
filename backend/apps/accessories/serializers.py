@@ -19,10 +19,14 @@ class ColorPaletteSerializer(serializers.ModelSerializer):
 
 class BeadSerializer(serializers.ModelSerializer):
     material = MaterialSerializer(read_only=True)
-    color = ColorPaletteSerializer(read_only=True)
+    color    = ColorPaletteSerializer(read_only=True)
+    # Expose the new rendering fields explicitly so the frontend always
+    # receives them even if the client sends a sparse field list.
+    bead_material_type = serializers.CharField(read_only=True)
+    transparency       = serializers.CharField(read_only=True)
 
     class Meta:
-        model = Bead
+        model  = Bead
         fields = '__all__'
         read_only_fields = ['id']
 

@@ -14,6 +14,7 @@ import SaveDesignModal from '../components/configurator/SaveDesignModal';
 import AddToCartButton from '../components/configurator/AddToCartButton';
 import JewelryViewer from '../components/viewer/JewelryViewer';
 import ChainSelector from '../components/configurator/ChainSelector';
+import useHandModel from '../hooks/useHandModel';
 
 // ── Chain picker modal (self-contained, fetches its own chain list) ─────────
 const ChainPickerModal = ({ onClose }) => {
@@ -69,6 +70,9 @@ const Configurator = () => {
     isGenerating,
     editingBeadIndex,
   } = useConfiguratorStore();
+
+  // Kick off background preload of the hand GLB so it's cached before first click
+  useHandModel();
 
   const [showSaveModal,   setShowSaveModal]   = useState(false);
   const [showReorder,     setShowReorder]     = useState(false);

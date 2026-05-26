@@ -42,15 +42,46 @@ class ColorPalette(models.Model):
 
 
 class Bead(models.Model):
-    SHAPE_ROUND = 'round'
-    SHAPE_OVAL = 'oval'
-    SHAPE_CUBE = 'cube'
+    SHAPE_ROUND   = 'round'
+    SHAPE_OVAL    = 'oval'
+    SHAPE_CUBE    = 'cube'
     SHAPE_FACETED = 'faceted'
     SHAPE_CHOICES = [
-        (SHAPE_ROUND, 'Round'),
-        (SHAPE_OVAL, 'Oval'),
-        (SHAPE_CUBE, 'Cube'),
+        (SHAPE_ROUND,   'Round'),
+        (SHAPE_OVAL,    'Oval'),
+        (SHAPE_CUBE,    'Cube'),
         (SHAPE_FACETED, 'Faceted'),
+    ]
+
+    # 3D rendering material type (distinct from the accessory Material FK)
+    MTYPE_GLASS    = 'glass'
+    MTYPE_CRYSTAL  = 'crystal'
+    MTYPE_STONE    = 'stone'
+    MTYPE_METAL    = 'metal'
+    MTYPE_RESIN    = 'resin'
+    MTYPE_PEARL    = 'pearl'
+    MTYPE_WOOD     = 'wood'
+    MTYPE_CERAMIC  = 'ceramic'
+    MTYPE_OTHER    = 'other'
+    MTYPE_CHOICES  = [
+        (MTYPE_GLASS,   'Glass'),
+        (MTYPE_CRYSTAL, 'Crystal / Gemstone'),
+        (MTYPE_STONE,   'Stone / Jade'),
+        (MTYPE_METAL,   'Metal'),
+        (MTYPE_RESIN,   'Resin / Acrylic'),
+        (MTYPE_PEARL,   'Pearl'),
+        (MTYPE_WOOD,    'Wood'),
+        (MTYPE_CERAMIC, 'Ceramic'),
+        (MTYPE_OTHER,   'Other'),
+    ]
+
+    TRANS_TRANSPARENT = 'transparent'
+    TRANS_TRANSLUCENT = 'translucent'
+    TRANS_OPAQUE      = 'opaque'
+    TRANS_CHOICES     = [
+        (TRANS_TRANSPARENT, 'Transparent'),
+        (TRANS_TRANSLUCENT, 'Translucent'),
+        (TRANS_OPAQUE,      'Opaque'),
     ]
 
     name = models.CharField(max_length=200)
@@ -83,7 +114,24 @@ class Bead(models.Model):
         help_text='Bead size in millimeters',
     )
     shape = models.CharField(max_length=10, choices=SHAPE_CHOICES, default=SHAPE_ROUND)
-    texture = models.ImageField(upload_to='beads/textures/', blank=True, null=True)
+    bead_material_type = models.CharField(
+        max_length=10,
+        choices=MTYPE_CHOICES,
+        default=MTYPE_GLASS,
+        help_text='Physical material of the bead — drives 3D rendering (transmission, IOR, metalness)',
+    )
+    transparency = models.CharField(
+        max_length=12,
+        choices=TRANS_CHOICES,
+        default=TRANS_TRANSLUCENT,
+        help_text='Transparency level for 3D rendering',
+    )
+    texture = models.ImageField(
+        upload_to='beads/textures/',
+        blank=True,
+        null=True,
+        help_text='Pattern/surface photo used as MatCap in the 3D viewer (millefiori, crackle, etc.)',
+    )
     thumbnail = models.ImageField(upload_to='beads/thumbnails/', blank=True, null=True)
     is_active = models.BooleanField(default=True)
 

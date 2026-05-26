@@ -73,16 +73,18 @@ const BraceletScene = memo(() => {
       {/* Beads — evenly spaced on circular arc, 0 → 2π */}
       {totalBeads > 0 &&
         selectedBeads.map((bead, i) => (
-          <Suspense key={`bead-${bead.id}-${i}`} fallback={null}>
-            <BeadMesh
-              modelUrl={bead.model_file ?? null}
-              position={beadPositions[i]}
-              color={bead.color?.hex_code ?? colorHex ?? null}
-              onClick={() => handleBeadClick(i)}
-              isEditing={editingBeadIndex === i}
-              radius={beadRadius}
-            />
-          </Suspense>
+          <BeadMesh
+            key={`bead-${bead.id}-${i}`}
+            modelUrl={bead.model_file ?? null}
+            shape={bead.shape ?? 'round'}
+            beadMaterialType={bead.bead_material_type ?? 'glass'}
+            transparency={bead.transparency ?? 'translucent'}
+            position={beadPositions[i]}
+            color={bead.color?.hex_code ?? colorHex ?? null}
+            onClick={() => handleBeadClick(i)}
+            isEditing={editingBeadIndex === i}
+            radius={beadRadius}
+          />
         ))}
 
       {/* Charms — up to 4 evenly spaced positions */}

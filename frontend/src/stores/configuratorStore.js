@@ -15,6 +15,7 @@ const useConfiguratorStore = create((set) => ({
   savedDesignId:    null,
   isGenerating:     false,
   editingBeadIndex: null,
+  isHandViewActive: false,
 
   // ── Individual setters ──────────────────────────────────────────────────
   setCategory:         (category)         => set({ category }),
@@ -26,6 +27,7 @@ const useConfiguratorStore = create((set) => ({
   setTotalPrice:       (totalPrice)       => set({ totalPrice }),
   setIsGenerating:     (isGenerating)     => set({ isGenerating }),
   setEditingBeadIndex: (editingBeadIndex) => set({ editingBeadIndex }),
+  toggleHandView: () => set((state) => ({ isHandViewActive: !state.isHandViewActive })),
 
   // ── Bead editor actions ─────────────────────────────────────────────────
   openBeadEditor: (index) => set({ editingBeadIndex: index }),
@@ -70,6 +72,7 @@ const useConfiguratorStore = create((set) => ({
       savedDesignId:    null,
       isGenerating:     false,
       editingBeadIndex: null,
+      isHandViewActive: false,
     }),
 }));
 
@@ -86,7 +89,8 @@ export const selectCharms   = (s) => s.selectedCharms;
 export const selectColor    = (s) => s.selectedColor;
 export const selectMaterial = (s) => s.selectedMaterial;
 export const selectPrice    = (s) => s.totalPrice;
-export const selectCategory = (s) => s.category;
+export const selectCategory        = (s) => s.category;
+export const selectIsHandViewActive = (s) => s.isHandViewActive;
 
 // ── Compound shallow selector ─────────────────────────────────────────────────
 // When a component needs several fields at once, use this to avoid subscribing

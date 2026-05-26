@@ -21,6 +21,8 @@ python-dotenv>=1.0,<2.0
 # Image Processing
 Pillow>=10.0,<11.0
 
+# AI / ML  — uses Gemini REST API directly via requests (no SDK needed)
+
 # Development
 ipython>=8.0
 django-extensions>=3.2,<4.0

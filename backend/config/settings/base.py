@@ -6,9 +6,13 @@ Base settings - shared across all environments.
 import os
 from pathlib import Path
 from datetime import timedelta
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+# Load .env file so os.environ.get() picks up all keys (GEMINI_API_KEY, etc.)
+load_dotenv(BASE_DIR / '.env', override=False)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-change-me-in-production')
@@ -222,8 +226,13 @@ JAZZCASH_INTEGRITY_SALT = os.environ.get('JAZZCASH_INTEGRITY_SALT', '')
 JAZZCASH_POST_URL = os.environ.get('JAZZCASH_POST_URL', 'https://sandbox.jazzcash.com.pk/CustomerPortal/transactionmanagement/merchantform')
 
 # App URLs
-BACKEND_URL = os.environ.get('BACKEND_URL', 'http://localhost:8000')
+BACKEND_URL  = os.environ.get('BACKEND_URL',  'http://localhost:8000')
 FRONTEND_URL = os.environ.get('FRONTEND_URL', 'http://localhost:3000')
+
+# Google Gemini Vision API — used for bead image analysis in Django admin.
+# Free tier: https://ai.google.dev/gemini-api/docs/models/gemini
+# pip install google-generativeai
+GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
 
 # Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
