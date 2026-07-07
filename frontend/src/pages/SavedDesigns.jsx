@@ -137,8 +137,31 @@ const SavedDesigns = () => {
       ? (chains.find((c) => c.id === cfg.selectedChain) ?? null)
       : null;
 
+    // Charms may be stored as bare ids (legacy) or as { id, angle, variantId }.
     const fullCharms = (cfg.selectedCharms ?? [])
-      .map((id) => charms.find((c) => c.id === id))
+      .map((entry) => {
+        const isObj = typeof entry === 'object';
+        const id = isObj ? entry?.id : entry;
+        const charm = charms.find((c) => c.id === id);
+        if (!charm) return null;
+        const variantId = isObj ? entry?.variantId ?? null : null;
+        const variant =
+          (charm.variants ?? []).find((v) => v.id === variantId) ??
+          (charm.variants ?? []).find((v) => v.is_default) ??
+          (charm.variants ?? [])[0] ??
+          null;
+        return {
+          ...charm,
+          image: variant?.image ?? charm.image,
+          variantId: variant?.id ?? null,
+          variantColorName: variant?.color_name ?? null,
+          variantColorHex: variant?.color_hex ?? null,
+          instanceId:
+            globalThis.crypto?.randomUUID?.() ??
+            `charm_${id}_${Math.random().toString(36).slice(2)}`,
+          angle: isObj && entry?.angle != null ? entry.angle : 0,
+        };
+      })
       .filter(Boolean);
 
     const fullMaterial = cfg.selectedMaterial

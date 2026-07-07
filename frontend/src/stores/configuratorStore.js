@@ -2,6 +2,16 @@
 import { create } from 'zustand';
 import { shallow } from 'zustand/shallow';
 
+// Max charms a customer can place on one bracelet.
+export const MAX_CHARMS = 8;
+
+// Unique id for a placed charm instance (duplicates of the same charm allowed).
+const newInstanceId = () =>
+  (globalThis.crypto?.randomUUID?.() ?? `charm_${Date.now()}_${Math.random().toString(36).slice(2)}`);
+
+// Default angle (radians) for the Nth charm — evenly spread around the bracelet.
+const defaultCharmAngle = (index) => (index / MAX_CHARMS) * Math.PI * 2;
+
 const useConfiguratorStore = create((set) => ({
   // ── State slices ────────────────────────────────────────────────────────
   category:         null,
@@ -16,8 +26,12 @@ const useConfiguratorStore = create((set) => ({
   isGenerating:     false,
   editingBeadIndex: null,
   isHandViewActive: false,
+  viewerBackground: '#0d0d1a',
+  draggingCharmId:  null,
+  charmRingColor:   'gold',   // 'gold' | 'silver' — hoop/jump-ring metal for all charms
 
   // ── Individual setters ──────────────────────────────────────────────────
+  setCharmRingColor: (charmRingColor) => set({ charmRingColor }),
   setCategory:         (category)         => set({ category }),
   setSelectedBeads:    (selectedBeads)    => set({ selectedBeads }),
   setSelectedChain:    (selectedChain)    => set({ selectedChain }),
@@ -28,6 +42,7 @@ const useConfiguratorStore = create((set) => ({
   setIsGenerating:     (isGenerating)     => set({ isGenerating }),
   setEditingBeadIndex: (editingBeadIndex) => set({ editingBeadIndex }),
   toggleHandView: () => set((state) => ({ isHandViewActive: !state.isHandViewActive })),
+  setViewerBackground: (viewerBackground) => set({ viewerBackground }),
 
   // ── Bead editor actions ─────────────────────────────────────────────────
   openBeadEditor: (index) => set({ editingBeadIndex: index }),
@@ -58,6 +73,88 @@ const useConfiguratorStore = create((set) => ({
       selectedCharms: state.selectedCharms.filter((_, i) => i !== index),
     })),
 
+  // ── Charm placement ───────────────────────────────────────────────────────
+  // Charms are stored as placed instances: { ...charm, instanceId, angle }.
+  // Duplicates of the same charm are allowed (each is its own instance).
+  addCharm: (charm, variant = null) =>
+    set((state) => {
+      if (state.selectedCharms.length >= MAX_CHARMS) return state;
+      const instance = {
+        ...charm,
+        // Chosen color variant (if any) drives the image the viewer renders.
+        image: variant?.image ?? charm.image,
+        variantId: variant?.id ?? null,
+        variantColorName: variant?.color_name ?? null,
+        variantColorHex: variant?.color_hex ?? null,
+        instanceId: newInstanceId(),
+        angle: defaultCharmAngle(state.selectedCharms.length),
+      };
+      return { selectedCharms: [...state.selectedCharms, instance] };
+    }),
+
+  moveCharm: (instanceId, angle) =>
+    set((state) => ({
+      selectedCharms: state.selectedCharms.map((c) =>
+        c.instanceId === instanceId && c.is_movable !== false ? { ...c, angle } : c,
+      ),
+    })),
+
+  removeCharmInstance: (instanceId) =>
+    set((state) => ({
+      selectedCharms: state.selectedCharms.filter((c) => c.instanceId !== instanceId),
+    })),
+
+  // Refresh placed charms' shared config (size, ring, type, join point, variant
+  // image) from the latest catalog so admin edits show up without re-adding.
+  // Keeps each instance's placement (instanceId, angle) and chosen variant.
+  syncPlacedCharms: (catalog) =>
+    set((state) => {
+      if (!state.selectedCharms.length || !catalog?.length) return state;
+      const byId = new Map(catalog.map((c) => [c.id, c]));
+      let changed = false;
+      const next = state.selectedCharms.map((inst) => {
+        const fresh = byId.get(inst.id);
+        if (!fresh) return inst;
+        const updated = {
+          ...inst,
+          name: fresh.name,
+          price: fresh.price,
+          size_mm: fresh.size_mm,
+          charm_type: fresh.charm_type,
+          is_movable: fresh.is_movable,
+          jump_ring_color: fresh.jump_ring_color,
+          anchor_x: fresh.anchor_x,
+          anchor_y: fresh.anchor_y,
+          variants: fresh.variants,
+        };
+        if (inst.variantId) {
+          const v = (fresh.variants ?? []).find((x) => x.id === inst.variantId);
+          if (v) {
+            updated.image = v.image;
+            updated.variantColorHex = v.color_hex;
+            updated.variantColorName = v.color_name;
+          }
+        } else {
+          updated.image = fresh.image;
+        }
+        if (
+          updated.size_mm !== inst.size_mm ||
+          updated.jump_ring_color !== inst.jump_ring_color ||
+          updated.charm_type !== inst.charm_type ||
+          updated.is_movable !== inst.is_movable ||
+          updated.anchor_x !== inst.anchor_x ||
+          updated.anchor_y !== inst.anchor_y ||
+          updated.image !== inst.image
+        ) {
+          changed = true;
+        }
+        return updated;
+      });
+      return changed ? { selectedCharms: next } : state;
+    }),
+
+  setDraggingCharmId: (draggingCharmId) => set({ draggingCharmId }),
+
   // ── Reset ───────────────────────────────────────────────────────────────
   resetDesign: () =>
     set({
@@ -73,6 +170,9 @@ const useConfiguratorStore = create((set) => ({
       isGenerating:     false,
       editingBeadIndex: null,
       isHandViewActive: false,
+      viewerBackground: '#0d0d1a',
+      draggingCharmId:  null,
+      charmRingColor:   'gold',
     }),
 }));
 

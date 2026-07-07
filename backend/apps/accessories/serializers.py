@@ -1,6 +1,6 @@
 # backend/apps/accessories/serializers.py
 from rest_framework import serializers
-from .models import Material, ColorPalette, Bead, Chain, Charm
+from .models import Material, ColorPalette, Bead, Chain, Charm, CharmVariant
 
 
 class MaterialSerializer(serializers.ModelSerializer):
@@ -41,9 +41,16 @@ class ChainSerializer(serializers.ModelSerializer):
         read_only_fields = ['id']
 
 
+class CharmVariantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CharmVariant
+        fields = ['id', 'color_name', 'color_hex', 'image', 'is_default', 'sort_order']
+
+
 class CharmSerializer(serializers.ModelSerializer):
     material = MaterialSerializer(read_only=True)
     color = ColorPaletteSerializer(read_only=True)
+    variants = CharmVariantSerializer(many=True, read_only=True)
 
     class Meta:
         model = Charm

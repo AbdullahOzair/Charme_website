@@ -8,7 +8,6 @@ import {
   PerspectiveCamera,
   OrbitControls,
   Environment,
-  ContactShadows,
   AdaptiveDpr,
   AdaptiveEvents,
   Html,
@@ -34,20 +33,24 @@ const TryOnHtml = () => (
 // ── Force a WebGL frame when the view mode switches ────────────────────────
 // frameloop="demand" skips rendering unless explicitly invalidated.
 // Mounting new scene content doesn't always auto-trigger a frame, so we do it here.
-const ViewInvalidator = ({ isHandView }) => {
+const ViewInvalidator = ({ isHandView, viewerBackground }) => {
   const { invalidate } = useThree();
-  useEffect(() => { invalidate(); }, [isHandView, invalidate]);
+  useEffect(() => { invalidate(); }, [isHandView, viewerBackground, invalidate]);
   return null;
 };
 
 // ── Bracelet scene content ──────────────────────────────────────────────────
-const BraceletSceneContent = ({ controlsRef }) => (
+const BraceletSceneContent = ({ controlsRef }) => {
+  // Freeze the camera while a charm is being dragged around the bracelet.
+  const draggingCharmId = useConfiguratorStore((s) => s.draggingCharmId);
+  return (
   <>
     <PerspectiveCamera key="bracelet-cam" makeDefault fov={42} position={[0, 2.5, 8]} />
 
     <OrbitControls
       ref={controlsRef}
       enablePan={false}
+      enabled={!draggingCharmId}
       minDistance={3}
       maxDistance={15}
       autoRotate={false}
@@ -74,19 +77,12 @@ const BraceletSceneContent = ({ controlsRef }) => (
 
     <Suspense fallback={null}>
       <Environment preset="studio" background={false} />
-      <ContactShadows
-        position={[0, -0.58, 0]}
-        opacity={0.45}
-        scale={12}
-        blur={2.0}
-        far={1.2}
-        color="#000020"
-      />
     </Suspense>
 
     <ViewerControls controlsRef={controlsRef} />
   </>
-);
+  );
+};
 
 // ── Hand try-on scene content ───────────────────────────────────────────────
 const HandSceneContent = ({ controlsRef }) => (
@@ -110,11 +106,13 @@ const HandSceneContent = ({ controlsRef }) => (
 );
 
 // ── Shared Canvas content wrapper ───────────────────────────────────────────
-const SceneContent = ({ controlsRef, isHandView }) => (
+const SceneContent = ({ controlsRef, isHandView }) => {
+  const viewerBackground = useConfiguratorStore((s) => s.viewerBackground);
+  return (
   <>
-    <color attach="background" args={[isHandView ? '#f0ede8' : '#0d0d1a']} />
+    <color attach="background" args={[isHandView ? '#f0ede8' : viewerBackground]} />
 
-    <ViewInvalidator isHandView={isHandView} />
+    <ViewInvalidator isHandView={isHandView} viewerBackground={viewerBackground} />
 
     {isHandView
       ? <HandSceneContent  controlsRef={controlsRef} />
@@ -127,7 +125,8 @@ const SceneContent = ({ controlsRef, isHandView }) => (
     <AdaptiveDpr pixelated />
     <AdaptiveEvents />
   </>
-);
+  );
+};
 
 // ── Canvas error boundary ───────────────────────────────────────────────────
 class CanvasErrorBoundary extends Component {

@@ -416,6 +416,22 @@
   border-radius: 10px;
 }
 
+/* Slim scrollbar for bounded configurator lists (beads, charms) */
+.config-scroll {
+  scrollbar-width: thin;                 /* Firefox */
+  scrollbar-color: #CE9B9B transparent;  /* Firefox: thumb / track */
+}
+.config-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.config-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.config-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #CE9B9B, #B76E79);
+  border-radius: 10px;
+}
+
 /* ============================================
    SELECTION
    ============================================ */

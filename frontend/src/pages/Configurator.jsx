@@ -5,7 +5,6 @@ import toast from 'react-hot-toast';
 import useConfiguratorStore from '../stores/configuratorStore';
 import useJewelryAssets from '../hooks/useJewelryAssets';
 import ConfiguratorSidebar from '../components/configurator/ConfiguratorSidebar';
-import AIPromptInput from '../components/configurator/AIPromptInput';
 import EditToolbar from '../components/editor/EditToolbar';
 import BraceletReorder from '../components/editor/BraceletReorder';
 import BeadEditor from '../components/editor/BeadEditor';
@@ -13,6 +12,7 @@ import CharmEditor from '../components/editor/CharmEditor';
 import SaveDesignModal from '../components/configurator/SaveDesignModal';
 import AddToCartButton from '../components/configurator/AddToCartButton';
 import JewelryViewer from '../components/viewer/JewelryViewer';
+import BackgroundPicker from '../components/viewer/BackgroundPicker';
 import ChainSelector from '../components/configurator/ChainSelector';
 import useHandModel from '../hooks/useHandModel';
 
@@ -137,9 +137,6 @@ const Configurator = () => {
         </div>
       </header>
 
-      {/* ── AI Prompt ── */}
-      <AIPromptInput />
-
       {/* ── Edit Toolbar ── */}
       <EditToolbar
         showReorder={showReorder}
@@ -194,6 +191,7 @@ const Configurator = () => {
           <div className="absolute inset-0 w-full h-full">
             <JewelryViewer />
           </div>
+          <BackgroundPicker />
         </main>
       </div>
 

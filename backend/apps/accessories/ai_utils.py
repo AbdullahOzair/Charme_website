@@ -39,7 +39,10 @@ with no extra text, no markdown fences, no explanation.
   "shape":              "<exactly one of: round | oval | cube | faceted>",
   "has_pattern":        <true | false>,
   "pattern_type":       "<millefiori | crackle | swirl | floral | geometric | stripe | none>",
-  "surface":            "<glossy | matte | metallic | frosted | textured>"
+  "surface":            "<glossy | matte | metallic | frosted | textured>",
+  "is_multi_shade":     <true | false>,
+  "shade_colors":       ["<#RRGGBB>", "<#RRGGBB>", "..."],
+  "texture_style":      "<none | natural_stone | marble | crackle | millefiori | swirl | galaxy>"
 }
 
 Guidelines:
@@ -51,6 +54,12 @@ Guidelines:
 - nacre / mother-of-pearl → pearl
 - millefiori (multicolor flower slices) → has_pattern true, pattern_type millefiori
 - crackle glass (internal fracture lines) → has_pattern true, pattern_type crackle
+- is_multi_shade: true when the bead clearly has 2+ distinct colors/shades on its
+  surface (natural stone, marble, mottled, veined, millefiori). A single solid
+  color (even with a highlight) is NOT multi-shade.
+- shade_colors: 2-5 dominant hex colors when multi-shade, otherwise a single-item
+  list with the main body color. Ignore the plain background of the photo.
+- texture_style: pick the closest surface style; use "none" for a plain solid bead.
 """
 
 

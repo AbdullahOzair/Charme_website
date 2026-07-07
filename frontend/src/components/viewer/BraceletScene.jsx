@@ -1,12 +1,41 @@
 // frontend/src/components/viewer/BraceletScene.jsx
 import { memo, useMemo, useCallback, Suspense } from 'react';
+import { useThree } from '@react-three/fiber';
+import { Plane, Vector3 } from 'three';
 import useConfiguratorStore from '../../stores/configuratorStore';
 import BeadMesh from './BeadMesh';
 import ChainMesh from './ChainMesh';
 import CharmMesh from './CharmMesh';
 
 const BEAD_ARC_RADIUS = 2.5;
-const MAX_CHARM_SLOTS = 4;
+
+// Charm sizing — nominal 15mm charm = scale 1.0, clamped so extremes stay sane.
+const CHARM_NOMINAL_MM = 15;
+const charmSizeFactor = (mm) => {
+  const v = Number(mm);
+  if (!v || Number.isNaN(v)) return 1;
+  return Math.max(0.5, Math.min(1.8, v / CHARM_NOMINAL_MM));
+};
+
+// World position of a charm's attach point ON the wire (y=0). The charm body
+// then hangs below via the sprite's loop pivot — see CharmMesh.
+const charmPlacement = (angle) => [
+  BEAD_ARC_RADIUS * Math.cos(angle),
+  0,
+  BEAD_ARC_RADIUS * Math.sin(angle),
+];
+
+// Snap an angle to the midpoint of the nearest gap between two beads, so a
+// charm always sits BETWEEN beads. Gap i midpoint = ((i + 0.5)/n)·2π.
+const snapAngleToBeadGap = (angle, beadCount) => {
+  if (!beadCount || beadCount < 1) return angle;
+  const twoPi = Math.PI * 2;
+  const idx = Math.round((angle / twoPi) * beadCount - 0.5);
+  return ((idx + 0.5) / beadCount) * twoPi;
+};
+
+// Reusable y=0 plane for converting a drag ray into a bracelet angle.
+const DRAG_PLANE = new Plane(new Vector3(0, 1, 0), 0);
 
 // Bead radius so beads nearly touch each other (≈90% of available arc per bead)
 const computeBeadRadius = (n) => {
@@ -24,13 +53,64 @@ const beadPosition = (index, total) => {
   ];
 };
 
-const charmPosition = (index) => {
-  const angle = (index / MAX_CHARM_SLOTS) * Math.PI * 2;
-  return [
-    BEAD_ARC_RADIUS * Math.cos(angle),
-    -0.22,
-    BEAD_ARC_RADIUS * Math.sin(angle),
-  ];
+// ── A placed charm: hangs between beads, draggable (snaps to bead gaps) ──────
+const PlacedCharm = ({ charm, color, beadCount }) => {
+  const moveCharm       = useConfiguratorStore((s) => s.moveCharm);
+  const setDraggingCharm = useConfiguratorStore((s) => s.setDraggingCharmId);
+  const draggingCharmId = useConfiguratorStore((s) => s.draggingCharmId);
+  const charmRingColor  = useConfiguratorStore((s) => s.charmRingColor);
+  const { invalidate }  = useThree();
+
+  const movable = charm.is_movable !== false;
+  const sizeF   = charmSizeFactor(charm.size_mm);
+  const angle   = snapAngleToBeadGap(charm.angle ?? 0, beadCount);
+  const pos     = charmPlacement(angle);
+  const dragging = draggingCharmId === charm.instanceId;
+
+  const onPointerDown = (e) => {
+    if (!movable) return;
+    e.stopPropagation();
+    e.target.setPointerCapture?.(e.pointerId);
+    setDraggingCharm(charm.instanceId);
+  };
+  const onPointerMove = (e) => {
+    if (!dragging) return;
+    e.stopPropagation();
+    const hit = new Vector3();
+    if (e.ray.intersectPlane(DRAG_PLANE, hit)) {
+      // Snap live so the charm clicks into the gap between beads.
+      moveCharm(charm.instanceId, snapAngleToBeadGap(Math.atan2(hit.z, hit.x), beadCount));
+      invalidate();
+    }
+  };
+  const onPointerUp = (e) => {
+    if (!dragging) return;
+    e.stopPropagation();
+    e.target.releasePointerCapture?.(e.pointerId);
+    setDraggingCharm(null);
+  };
+
+  return (
+    <group
+      position={pos}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerUp}
+    >
+      <Suspense fallback={null}>
+        <CharmMesh
+          modelUrl={charm.model_file ?? null}
+          imageUrl={charm.image ?? charm.preview_image ?? charm.thumbnail ?? null}
+          anchorX={charm.variantId ? null : (charm.anchor_x ?? null)}
+          anchorY={charm.variantId ? null : (charm.anchor_y ?? null)}
+          ringColor={charmRingColor ?? charm.jump_ring_color ?? 'gold'}
+          color={color}
+          scale={0.9 * sizeF}
+        />
+      </Suspense>
+    </group>
+  );
 };
 
 const BraceletScene = memo(() => {
@@ -76,6 +156,12 @@ const BraceletScene = memo(() => {
           <BeadMesh
             key={`bead-${bead.id}-${i}`}
             modelUrl={bead.model_file ?? null}
+            textureUrl={
+              (bead.use_real_photo || bead.is_multi_shade)
+                ? (bead.texture ?? bead.image ?? null)
+                : null
+            }
+            fillColor={bead.shade_colors?.[0] ?? bead.color?.hex_code ?? colorHex ?? '#cccccc'}
             shape={bead.shape ?? 'round'}
             beadMaterialType={bead.bead_material_type ?? 'glass'}
             transparency={bead.transparency ?? 'translucent'}
@@ -87,15 +173,14 @@ const BraceletScene = memo(() => {
           />
         ))}
 
-      {/* Charms — up to 4 evenly spaced positions */}
-      {selectedCharms.slice(0, MAX_CHARM_SLOTS).map((charm, i) => (
-        <Suspense key={`charm-${charm.id}-${i}`} fallback={null}>
-          <CharmMesh
-            modelUrl={charm.model_file ?? null}
-            position={charmPosition(i)}
-            color={colorHex ?? charm.color?.hex_code ?? null}
-          />
-        </Suspense>
+      {/* Charms — hang between beads from a hoop-ring; movable ones are draggable */}
+      {selectedCharms.map((charm) => (
+        <PlacedCharm
+          key={charm.instanceId ?? charm.id}
+          charm={charm}
+          color={colorHex ?? charm.color?.hex_code ?? null}
+          beadCount={totalBeads}
+        />
       ))}
     </group>
   );

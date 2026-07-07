@@ -13,10 +13,12 @@ from .serializers import (
 )
 
 
+# Configurator catalogs are small and must load in full — no pagination.
 class MaterialViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Material.objects.filter(is_active=True)
     serializer_class = MaterialSerializer
     permission_classes = [AllowAny]
+    pagination_class = None
     lookup_field = 'slug'
 
 
@@ -24,11 +26,13 @@ class ColorPaletteViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ColorPalette.objects.filter(is_active=True)
     serializer_class = ColorPaletteSerializer
     permission_classes = [AllowAny]
+    pagination_class = None
 
 
 class BeadViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = BeadSerializer
     permission_classes = [AllowAny]
+    pagination_class = None
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['material', 'color', 'shape']
     search_fields = ['name']
@@ -42,6 +46,7 @@ class BeadViewSet(viewsets.ReadOnlyModelViewSet):
 class ChainViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = ChainSerializer
     permission_classes = [AllowAny]
+    pagination_class = None
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['name']
     ordering_fields = ['name', 'price', 'thickness_mm']
@@ -54,6 +59,7 @@ class ChainViewSet(viewsets.ReadOnlyModelViewSet):
 class CharmViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = CharmSerializer
     permission_classes = [AllowAny]
+    pagination_class = None
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['name']
     ordering_fields = ['name', 'price']

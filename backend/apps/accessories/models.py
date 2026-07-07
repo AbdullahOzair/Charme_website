@@ -1,7 +1,14 @@
 # backend/apps/accessories/models.py
 from django.db import models
 from django.utils.text import slugify
-from django.core.validators import MinValueValidator
+from django.core.validators import (
+    MinValueValidator, MaxValueValidator, FileExtensionValidator, RegexValidator,
+)
+
+HEX_COLOR_VALIDATOR = RegexValidator(
+    r'^#[0-9A-Fa-f]{6}$',
+    'Enter a valid hex color like #RRGGBB (0–9, A–F only).',
+)
 from decimal import Decimal
 
 
@@ -84,9 +91,38 @@ class Bead(models.Model):
         (TRANS_OPAQUE,      'Opaque'),
     ]
 
+    # Surface style for multi-shade / patterned beads
+    TSTYLE_NONE     = 'none'
+    TSTYLE_STONE    = 'natural_stone'
+    TSTYLE_MARBLE   = 'marble'
+    TSTYLE_CRACKLE  = 'crackle'
+    TSTYLE_MILLE    = 'millefiori'
+    TSTYLE_SWIRL    = 'swirl'
+    TSTYLE_GALAXY   = 'galaxy'
+    TSTYLE_CHOICES  = [
+        (TSTYLE_NONE,    'None / solid'),
+        (TSTYLE_STONE,   'Natural stone'),
+        (TSTYLE_MARBLE,  'Marble'),
+        (TSTYLE_CRACKLE, 'Crackle'),
+        (TSTYLE_MILLE,   'Millefiori'),
+        (TSTYLE_SWIRL,   'Swirl'),
+        (TSTYLE_GALAXY,  'Galaxy'),
+    ]
+
     name = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='beads/', blank=True, null=True)
-    model_file = models.FileField(upload_to='beads/models/', blank=True, null=True)
+    image = models.ImageField(
+        upload_to='beads/',
+        blank=True,
+        null=True,
+        help_text='2D catalog photo (transparent PNG ok) shown on the bead selector card.',
+    )
+    model_file = models.FileField(
+        upload_to='beads/models/',
+        blank=True,
+        null=True,
+        validators=[FileExtensionValidator(['glb', 'gltf'])],
+        help_text='Optional 3D model — only .glb / .gltf files. Do NOT upload images here.',
+    )
     price = models.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -126,11 +162,37 @@ class Bead(models.Model):
         default=TRANS_TRANSLUCENT,
         help_text='Transparency level for 3D rendering',
     )
+
+    # ── Multi-shade / multicolor bead ─────────────────────────────────────────
+    is_multi_shade = models.BooleanField(
+        default=False,
+        help_text='Tick for multicolor beads (natural stone, marble, millefiori). '
+                  'Reveals the multi-shade options below and uses the real photo in 3D.',
+    )
+    use_real_photo = models.BooleanField(
+        default=False,
+        help_text='Render the real uploaded photo on the bead surface in the 3D viewer '
+                  '(instead of the manual color/material). Auto-on for multi-shade beads.',
+    )
+    shade_colors = models.JSONField(
+        default=list,
+        blank=True,
+        help_text='List of hex colors present in the bead, e.g. ["#B76E79", "#D4A574"]. '
+                  'Used for the multicolor swatch. Filled manually or by AI.',
+    )
+    texture_style = models.CharField(
+        max_length=20,
+        choices=TSTYLE_CHOICES,
+        default=TSTYLE_NONE,
+        blank=True,
+        help_text='Surface/pattern style for multi-shade beads.',
+    )
+
     texture = models.ImageField(
         upload_to='beads/textures/',
         blank=True,
         null=True,
-        help_text='Pattern/surface photo used as MatCap in the 3D viewer (millefiori, crackle, etc.)',
+        help_text='Surface photo mapped onto the 3D bead (real multi-shade look). Falls back to the 2D image if empty.',
     )
     thumbnail = models.ImageField(upload_to='beads/thumbnails/', blank=True, null=True)
     is_active = models.BooleanField(default=True)
@@ -187,15 +249,74 @@ class Chain(models.Model):
 
 
 class Charm(models.Model):
+    # How the charm attaches to the bracelet — drives 3D placement
+    TYPE_DANGLE = 'dangle'
+    TYPE_INLINE = 'inline'
+    TYPE_CLIP   = 'clip'
+    TYPE_CHOICES = [
+        (TYPE_DANGLE, 'Dangle (hangs below the strand)'),
+        (TYPE_INLINE, 'Inline (sits in the strand between beads)'),
+        (TYPE_CLIP,   'Clip (rests on top of a bead)'),
+    ]
+
     name = models.CharField(max_length=200)
     image = models.ImageField(upload_to='charms/', blank=True, null=True)
-    model_file = models.FileField(upload_to='charms/models/', blank=True, null=True)
+    model_file = models.FileField(
+        upload_to='charms/models/',
+        blank=True,
+        null=True,
+        validators=[FileExtensionValidator(['glb', 'gltf'])],
+        help_text='Optional 3D model — only .glb / .gltf files.',
+    )
     price = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         validators=[MinValueValidator(Decimal('0.00'))],
     )
     stock = models.PositiveIntegerField(default=0)
+    size_mm = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        default=Decimal('15.0'),
+        validators=[MinValueValidator(Decimal('0.1'))],
+        help_text='Charm size in millimeters — scales the charm in the 3D viewer.',
+    )
+    charm_type = models.CharField(
+        max_length=10,
+        choices=TYPE_CHOICES,
+        default=TYPE_DANGLE,
+        help_text='How the charm attaches — controls its 3D placement on the bracelet.',
+    )
+    is_movable = models.BooleanField(
+        default=True,
+        help_text='Customer can slide/drag this charm around the bracelet. '
+                  'If off, it stays at its auto-assigned slot.',
+    )
+    RING_GOLD   = 'gold'
+    RING_SILVER = 'silver'
+    RING_CHOICES = [
+        (RING_GOLD,   'Gold'),
+        (RING_SILVER, 'Silver'),
+    ]
+    jump_ring_color = models.CharField(
+        max_length=6,
+        choices=RING_CHOICES,
+        default=RING_GOLD,
+        help_text='Metal color of the hoop/jump ring that connects the charm to the wire.',
+    )
+    anchor_x = models.FloatField(
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(0.0), MaxValueValidator(1.0)],
+        help_text='Join point X (0–1 from the left of the image) where the loop meets the '
+                  'wire. Set by clicking the image below. Auto-detected if left blank.',
+    )
+    anchor_y = models.FloatField(
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(0.0), MaxValueValidator(1.0)],
+        help_text='Join point Y (0–1 from the top of the image).',
+    )
     material = models.ForeignKey(
         Material,
         on_delete=models.SET_NULL,
@@ -219,3 +340,34 @@ class Charm(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class CharmVariant(models.Model):
+    """A color option of a charm — same shape, different color + image."""
+    charm = models.ForeignKey(
+        Charm,
+        on_delete=models.CASCADE,
+        related_name='variants',
+    )
+    color_name = models.CharField(max_length=100, help_text='e.g. Red, Sky Blue, Gold')
+    color_hex = models.CharField(
+        max_length=7,
+        default='#cccccc',
+        validators=[HEX_COLOR_VALIDATOR],
+        help_text='Swatch color shown to the customer, e.g. #E11D48',
+    )
+    image = models.ImageField(
+        upload_to='charms/variants/',
+        help_text='This color’s image (transparent PNG recommended).',
+    )
+    is_default = models.BooleanField(
+        default=False,
+        help_text='Show this color first in the configurator.',
+    )
+    sort_order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['sort_order', 'id']
+
+    def __str__(self):
+        return f'{self.charm.name} — {self.color_name}'

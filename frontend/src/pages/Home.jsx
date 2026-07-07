@@ -395,7 +395,7 @@ const Home = () => {
                 <Butterfly size="xxl" className="opacity-20 animate-butterfly" />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="text-sm uppercase tracking-widest" style={{ color: '#B76E79', fontFamily: "'Quicksand', sans-serif" }}>
-                    Artisan Image
+                    image
                   </span>
                 </div>
               </div>

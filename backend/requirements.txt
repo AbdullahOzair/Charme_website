@@ -29,3 +29,7 @@ django-extensions>=3.2,<4.0
 
 # Production
 gunicorn>=21.0,<22.0
+
+# Media storage (Cloudflare R2 / S3-compatible) — used in production settings
+django-storages>=1.14,<2.0
+boto3>=1.34,<2.0

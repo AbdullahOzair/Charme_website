@@ -54,7 +54,9 @@ const SaveDesignModal = ({ canvasRef, onClose }) => {
       braceletLength:  braceletLength ?? null,
       selectedBeads:   selectedBeads.map((b) => b.id),
       selectedChain:   selectedChain?.id ?? null,
-      selectedCharms:  selectedCharms.map((c) => c.id),
+      selectedCharms:  selectedCharms.map((c) => ({
+        id: c.id, angle: c.angle ?? 0, variantId: c.variantId ?? null,
+      })),
       selectedMaterial: selectedMaterial?.id ?? null,
       selectedColor:    selectedColor?.id ?? null,
     };

@@ -1,61 +1,25 @@
-import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { HeartIcon, TrashIcon } from '@heroicons/react/24/outline'
-import { productService } from '../services/productService'
+import { useWishlistStore } from '../stores/wishlistStore'
 import { useCartStore } from '../stores/cartStore'
 import toast from 'react-hot-toast'
 
 const WishlistPage = () => {
-  const [wishlist, setWishlist] = useState([])
-  const [loading, setLoading] = useState(true)
+  const items = useWishlistStore((state) => state.items)
+  const removeItem = useWishlistStore((state) => state.removeItem)
   const { addItem } = useCartStore()
 
-  useEffect(() => {
-    fetchWishlist()
-  }, [])
-
-  const fetchWishlist = async () => {
-    try {
-      const data = await productService.getWishlist()
-      setWishlist(data.results || data)
-    } catch (error) {
-      console.error('Failed to fetch wishlist:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const handleRemove = async (itemId) => {
-    try {
-      await productService.removeFromWishlist(itemId)
-      setWishlist(wishlist.filter(item => item.id !== itemId))
-      toast.success('Removed from wishlist')
-    } catch {
-      toast.error('Failed to remove item')
-    }
+  const handleRemove = (productId) => {
+    removeItem(productId)
+    toast.success('Removed from collection')
   }
 
   const handleAddToCart = async (product) => {
     try {
-      await addItem(product, 1)
-      toast.success('Added to cart!')
+      await addItem(product.id, 1)
     } catch {
       toast.error('Failed to add to cart')
     }
-  }
-
-  if (loading) {
-    return (
-      <div className="py-8">
-        <div className="container-custom">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="bg-gray-100 rounded-xl aspect-square animate-pulse" />
-            ))}
-          </div>
-        </div>
-      </div>
-    )
   }
 
   return (
@@ -63,28 +27,28 @@ const WishlistPage = () => {
       <div className="container-custom">
         <div className="flex items-center gap-3 mb-8">
           <HeartIcon className="h-8 w-8 text-primary-600" />
-          <h1 className="section-title">My Wishlist</h1>
+          <h1 className="section-title">My Collection</h1>
         </div>
 
-        {wishlist.length === 0 ? (
+        {items.length === 0 ? (
           <div className="text-center py-16">
             <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
               <HeartIcon className="w-12 h-12 text-gray-400" />
             </div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">Your wishlist is empty</h2>
-            <p className="text-gray-500 mb-6">Save items you love to your wishlist.</p>
-            <Link to="/products" className="btn-primary">
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">Your collection is empty</h2>
+            <p className="text-gray-500 mb-6">Save items you love to your collection.</p>
+            <Link to="/shop" className="btn-primary">
               Explore Products
             </Link>
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {wishlist.map((item) => (
+            {items.map((product) => (
               <WishlistItem
-                key={item.id}
-                item={item}
-                onRemove={() => handleRemove(item.id)}
-                onAddToCart={() => handleAddToCart(item.product)}
+                key={product.id}
+                product={product}
+                onRemove={() => handleRemove(product.id)}
+                onAddToCart={() => handleAddToCart(product)}
               />
             ))}
           </div>
@@ -94,19 +58,19 @@ const WishlistPage = () => {
   )
 }
 
-const WishlistItem = ({ item, onRemove, onAddToCart }) => {
-  const product = item.product
+const WishlistItem = ({ product, onRemove, onAddToCart }) => {
+  const price = product.is_on_sale && product.sale_price ? product.sale_price : product.price
 
   return (
     <div className="group card overflow-hidden">
       {/* Image */}
       <Link to={`/product/${product.slug}`} className="block relative aspect-square">
         <img
-          src={product.image || '/images/placeholder.jpg'}
+          src={product.image || '/placeholder-product.jpg'}
           alt={product.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
-        
+
         {/* Remove Button */}
         <button
           onClick={(e) => {
@@ -114,7 +78,7 @@ const WishlistItem = ({ item, onRemove, onAddToCart }) => {
             onRemove()
           }}
           className="absolute top-3 right-3 p-2 bg-white/90 rounded-full shadow-sm hover:bg-red-50 hover:text-red-500 transition-colors"
-          aria-label="Remove from wishlist"
+          aria-label="Remove from collection"
         >
           <TrashIcon className="h-5 w-5" />
         </button>
@@ -139,11 +103,11 @@ const WishlistItem = ({ item, onRemove, onAddToCart }) => {
 
         <div className="mt-2 flex items-center gap-2">
           <span className="text-lg font-semibold text-gray-900">
-            Rs. {product.price?.toLocaleString()}
+            Rs. {Number(price).toLocaleString()}
           </span>
-          {product.compare_price && (
+          {product.is_on_sale && product.sale_price && (
             <span className="text-sm text-gray-500 line-through">
-              Rs. {product.compare_price?.toLocaleString()}
+              Rs. {Number(product.price).toLocaleString()}
             </span>
           )}
         </div>

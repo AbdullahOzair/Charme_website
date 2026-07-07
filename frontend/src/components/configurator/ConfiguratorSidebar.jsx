@@ -1,6 +1,7 @@
 // frontend/src/components/configurator/ConfiguratorSidebar.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import useConfiguratorStore from '../../stores/configuratorStore';
 import useJewelryAssets from '../../hooks/useJewelryAssets';
 import CategorySelector from './CategorySelector';
 import LengthSelector from './LengthSelector';
@@ -44,6 +45,13 @@ const Section = ({ id, label, open, onToggle, children }) => (
 const ConfiguratorSidebar = () => {
   const { categories, beads, chains, charms, materials, colors, loading, error } =
     useJewelryAssets();
+
+  // When the charm catalog (re)loads, refresh placed charms' config so admin
+  // edits (size, ring, join point, variant images) show up without re-adding.
+  const syncPlacedCharms = useConfiguratorStore((s) => s.syncPlacedCharms);
+  useEffect(() => {
+    if (charms?.length) syncPlacedCharms(charms);
+  }, [charms, syncPlacedCharms]);
 
   const [open, setOpen] = useState(
     Object.fromEntries(SECTION_IDS.map((id) => [id, true]))

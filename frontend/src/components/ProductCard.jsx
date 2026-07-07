@@ -5,7 +5,9 @@
 import { Link } from 'react-router-dom';
 import { Heart, ShoppingBag, Sparkles } from 'lucide-react';
 import { useCartStore } from '../stores/cartStore';
+import { useWishlistStore } from '../stores/wishlistStore';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import LazyImage from './LazyImage';
 
 // Small Butterfly Accent
@@ -29,9 +31,12 @@ const ButterflyAccent = ({ className = "" }) => (
 
 const ProductCard = ({ product }) => {
   const { addItem } = useCartStore();
+  const toggleWishlist = useWishlistStore((state) => state.toggleItem);
+  const isLiked = useWishlistStore((state) =>
+    state.items.some((item) => item.id === product.id)
+  );
   const [isAdding, setIsAdding] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
 
   const handleAddToCart = async (e) => {
     e.preventDefault();
@@ -52,7 +57,8 @@ const ProductCard = ({ product }) => {
   const handleLike = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsLiked(!isLiked);
+    const added = toggleWishlist(product);
+    toast.success(added ? 'Added to collection' : 'Removed from collection');
   };
 
   return (

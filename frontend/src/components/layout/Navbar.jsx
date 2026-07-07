@@ -115,7 +115,7 @@ const Navbar = () => {
   const navLinks = [
     { to: '/', label: 'Home' },
     { to: '/shop', label: 'Shop' },
-    { to: '/collections', label: 'Collections' },
+    { to: '/wishlist', label: 'Wishlist' },
     { to: '/about', label: 'About' },
     { to: '/contact', label: 'Contact' },
   ];

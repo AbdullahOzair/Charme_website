@@ -85,7 +85,7 @@ const BeadPanel = ({ beads, materials, colors }) => {
           No beads match the current filters.
         </p>
       ) : (
-        <div className="grid grid-cols-3 gap-2">
+        <div className="config-scroll grid grid-cols-3 gap-2 max-h-[22rem] overflow-y-auto pr-1">
           {filtered.map((bead) => {
             const count = getCount(bead);
             const canAdd = !atMax || count > 0; // can still remove even at max
@@ -99,12 +99,13 @@ const BeadPanel = ({ beads, materials, colors }) => {
                     : 'border-neutral-200 bg-white'
                 }`}
               >
-                {/* Thumbnail */}
-                {bead.thumbnail ? (
+                {/* Thumbnail — prefer the uploaded photo (transparent PNG ok),
+                    fall back to a flat color swatch only when no image exists */}
+                {(bead.image || bead.thumbnail) ? (
                   <img
-                    src={bead.thumbnail}
+                    src={bead.image || bead.thumbnail}
                     alt={bead.name}
-                    className="w-10 h-10 object-cover rounded-md mb-1"
+                    className="w-10 h-10 object-contain rounded-md mb-1 bg-white border border-neutral-200"
                   />
                 ) : (
                   <div

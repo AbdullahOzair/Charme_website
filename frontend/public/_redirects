@@ -1,0 +1,3 @@
+# Cloudflare Pages / Netlify SPA fallback:
+# serve index.html for any path so React Router deep-links (e.g. /wishlist) work.
+/*  /index.html  200
