@@ -8,7 +8,29 @@
 */
 import { memo } from 'react';
 
-const SKIN = { color: '#D4956A', roughness: 0.75, metalness: 0.0 };
+// Soft skin: physical material with a subtle sheen so it reads as skin, not plastic.
+const SkinMat = () => (
+  <meshPhysicalMaterial
+    color="#e0a982"
+    roughness={0.6}
+    metalness={0}
+    sheen={0.5}
+    sheenColor="#ffcfae"
+    sheenRoughness={0.6}
+    clearcoat={0.08}
+    clearcoatRoughness={0.7}
+  />
+);
+
+const NAIL = { color: '#e8c3ab', roughness: 0.35, metalness: 0 };
+
+// Finger config: [x, baseY, radius, length, rotZ]
+const FINGERS = [
+  [-0.033, 0.045, 0.011, 0.068, 0.06],   // index
+  [-0.009, 0.052, 0.012, 0.080, 0.0],    // middle
+  [0.015,  0.047, 0.011, 0.072, -0.05],  // ring
+  [0.038,  0.035, 0.008, 0.054, -0.13],  // pinky
+];
 
 /*
   GEOMETRY MATH — all Y positions connect with no gaps:
@@ -26,57 +48,61 @@ export const HandModelFallback = memo(() => (
     {/* ── Wrist — center [0,−0.18,0], top at y=−0.135 ── */}
     <mesh position={[0, -0.18, 0]} castShadow receiveShadow>
       <cylinderGeometry args={[0.044, 0.048, 0.09, 24]} />
-      <meshStandardMaterial {...SKIN} />
+      <SkinMat />
     </mesh>
 
     {/* ── Palm — bottom at y=−0.14 (overlaps wrist), top at y=0.01 ── */}
     <mesh position={[0, -0.065, 0]} castShadow receiveShadow>
       <boxGeometry args={[0.10, 0.15, 0.025]} />
-      <meshStandardMaterial {...SKIN} />
+      <SkinMat />
+    </mesh>
+
+    {/* ── Palm rounding — softens the flat box front for a fleshier look ── */}
+    <mesh position={[0, -0.065, 0.006]} scale={[1, 1, 0.5]} castShadow>
+      <sphereGeometry args={[0.05, 20, 16]} />
+      <SkinMat />
     </mesh>
 
     {/* ── Thumb base (thenar eminence) — bridges palm to thumb ── */}
     <mesh position={[-0.054, -0.080, 0.008]} castShadow>
-      <sphereGeometry args={[0.019, 12, 12]} />
-      <meshStandardMaterial {...SKIN} />
+      <sphereGeometry args={[0.021, 14, 14]} />
+      <SkinMat />
     </mesh>
 
     {/* ── Thumb — nearly horizontal, right end inside palm ── */}
-    {/* rotation Z=−1.25 rad ≈ 72° → mostly horizontal, tip pointing up-left */}
     <mesh position={[-0.072, -0.065, 0.010]} rotation={[0.05, 0, -1.25]} castShadow>
-      <capsuleGeometry args={[0.014, 0.058, 4, 10]} />
-      <meshStandardMaterial {...SKIN} />
+      <capsuleGeometry args={[0.014, 0.058, 6, 14]} />
+      <SkinMat />
     </mesh>
 
-    {/* ── Index — center y = 0.00 + (0.034+0.011) = 0.045 ── */}
-    <mesh position={[-0.033, 0.045, 0]} rotation={[0, 0, 0.06]} castShadow>
-      <capsuleGeometry args={[0.011, 0.068, 4, 10]} />
-      <meshStandardMaterial {...SKIN} />
-    </mesh>
-
-    {/* ── Middle — center y = 0.00 + (0.040+0.012) = 0.052 ── */}
-    <mesh position={[-0.009, 0.052, 0]} castShadow>
-      <capsuleGeometry args={[0.012, 0.080, 4, 10]} />
-      <meshStandardMaterial {...SKIN} />
-    </mesh>
-
-    {/* ── Ring — center y = 0.00 + (0.036+0.011) = 0.047 ── */}
-    <mesh position={[0.015, 0.047, 0]} rotation={[0, 0, -0.05]} castShadow>
-      <capsuleGeometry args={[0.011, 0.072, 4, 10]} />
-      <meshStandardMaterial {...SKIN} />
-    </mesh>
-
-    {/* ── Pinky — center y = 0.00 + (0.027+0.008) = 0.035 ── */}
-    <mesh position={[0.038, 0.035, 0]} rotation={[0, 0, -0.13]} castShadow>
-      <capsuleGeometry args={[0.008, 0.054, 4, 10]} />
-      <meshStandardMaterial {...SKIN} />
-    </mesh>
+    {/* ── Fingers — capsules with a gentle forward curl + nails ── */}
+    {FINGERS.map(([x, baseY, r, len, rotZ], i) => {
+      const tipY = baseY + len / 2 + r;
+      return (
+        <group key={i} rotation={[-0.06, 0, 0]}>
+          <mesh position={[x, baseY, 0]} rotation={[0, 0, rotZ]} castShadow>
+            <capsuleGeometry args={[r, len, 6, 14]} />
+            <SkinMat />
+          </mesh>
+          {/* mid knuckle crease bump */}
+          <mesh position={[x, baseY + len * 0.18, 0]} castShadow>
+            <sphereGeometry args={[r * 1.02, 10, 10]} />
+            <SkinMat />
+          </mesh>
+          {/* fingernail on the front face of the tip */}
+          <mesh position={[x, tipY - r * 0.35, r * 0.72]} rotation={[0.5, 0, rotZ]}>
+            <boxGeometry args={[r * 1.3, r * 1.5, 0.003]} />
+            <meshStandardMaterial {...NAIL} />
+          </mesh>
+        </group>
+      );
+    })}
 
     {/* ── Knuckle rounds at finger bases (covers palm/finger seam) ── */}
-    {[[-0.033, 0.006], [-0.009, 0.006], [0.015, 0.006], [0.038, 0.006]].map(([x, y], i) => (
-      <mesh key={i} position={[x, y, 0]}>
-        <sphereGeometry args={[0.013 - i * 0.001, 8, 8]} />
-        <meshStandardMaterial {...SKIN} />
+    {FINGERS.map(([x], i) => (
+      <mesh key={`k${i}`} position={[x, 0.006, 0]}>
+        <sphereGeometry args={[0.013 - i * 0.001, 10, 10]} />
+        <SkinMat />
       </mesh>
     ))}
   </group>
