@@ -16,6 +16,17 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 X_FRAME_OPTIONS = 'DENY'
 
+# Behind Render's (and Cloudflare's) HTTPS proxy — trust the forwarded scheme so
+# Django knows requests are secure (needed for secure cookies, no redirect loop).
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
+
+# CSRF trusted origins (Django 4+) — required for admin login over HTTPS.
+# Comma-separated, e.g. "https://charme-api.onrender.com,https://charme.pages.dev"
+CSRF_TRUSTED_ORIGINS = [
+    o.strip() for o in os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',') if o.strip()
+]
+
 # Use Redis for caching when REDIS_URL is provided; otherwise fall back to
 # local-memory cache so the app still boots on free hosts without Redis.
 REDIS_URL = os.environ.get('REDIS_URL')
