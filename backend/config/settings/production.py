@@ -24,7 +24,7 @@ USE_X_FORWARDED_HOST = True
 # CSRF trusted origins (Django 4+) — required for admin login over HTTPS.
 # Comma-separated, e.g. "https://charme-api.onrender.com,https://charme.pages.dev"
 CSRF_TRUSTED_ORIGINS = [
-    o.strip() for o in os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',') if o.strip()
+    o.strip().rstrip('/') for o in os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',') if o.strip()
 ]
 
 # Use Redis for caching when REDIS_URL is provided; otherwise fall back to
