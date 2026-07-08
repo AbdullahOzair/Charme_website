@@ -51,28 +51,23 @@ else:
     }
     # Default DB-backed sessions when there's no Redis
 
-# ── Media storage on Cloudflare R2 (S3-compatible) ──────────────────────────
-# Uploaded media (bead images/textures/models) is stored in an R2 bucket so the
-# Cloudflare Pages frontend can load it over HTTPS. All values come from env.
-# Requires: django-storages, boto3 (see requirements.txt).
-AWS_ACCESS_KEY_ID       = os.environ.get('R2_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY   = os.environ.get('R2_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('R2_BUCKET_NAME')
-AWS_S3_ENDPOINT_URL     = os.environ.get('R2_ENDPOINT_URL')  # https://<account_id>.r2.cloudflarestorage.com
-# Public domain that serves the bucket (R2 public dev URL or a custom domain).
-AWS_S3_CUSTOM_DOMAIN    = os.environ.get('R2_PUBLIC_DOMAIN')  # e.g. media.charme.com or pub-xxxx.r2.dev
-AWS_S3_REGION_NAME      = 'auto'
-AWS_S3_SIGNATURE_VERSION = 's3v4'
-AWS_S3_FILE_OVERWRITE   = False
-AWS_DEFAULT_ACL         = None      # R2 ignores ACLs; bucket is made public via R2 settings
-AWS_QUERYSTRING_AUTH    = False     # serve unsigned public URLs
+# ── Media storage on Cloudinary (free, no credit card) ──────────────────────
+# Uploaded media (bead/charm images) is stored on Cloudinary's CDN so the
+# Cloudflare Pages frontend can load it over HTTPS. Values come from env.
+# Requires: cloudinary, django-cloudinary-storage (see requirements.txt).
+CLOUDINARY_CLOUD_NAME = os.environ.get('CLOUDINARY_CLOUD_NAME')
+CLOUDINARY_API_KEY    = os.environ.get('CLOUDINARY_API_KEY')
+CLOUDINARY_API_SECRET = os.environ.get('CLOUDINARY_API_SECRET')
 
-# Only switch media to R2 when the bucket is configured; otherwise keep local
-# disk (lets the app boot on hosts where R2 isn't set up yet).
-if AWS_STORAGE_BUCKET_NAME:
+# Only switch media to Cloudinary when configured; otherwise keep local disk
+# (lets the app boot before the creds are set).
+if CLOUDINARY_CLOUD_NAME:
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': CLOUDINARY_CLOUD_NAME,
+        'API_KEY':    CLOUDINARY_API_KEY,
+        'API_SECRET': CLOUDINARY_API_SECRET,
+    }
     STORAGES = {
-        'default': {'BACKEND': 'storages.backends.s3.S3Storage'},
+        'default': {'BACKEND': 'cloudinary_storage.storage.MediaCloudinaryStorage'},
         'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage'},
     }
-    if AWS_S3_CUSTOM_DOMAIN:
-        MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
