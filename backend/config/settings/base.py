@@ -221,6 +221,7 @@ CORS_ALLOW_HEADERS = [
     'user-agent',
     'x-csrftoken',
     'x-requested-with',
+    'x-guest-cart',
 ]
 
 # Session Configuration for Guest Cart

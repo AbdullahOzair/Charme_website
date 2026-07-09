@@ -24,57 +24,46 @@ from apps.cart.models import Coupon
 from apps.cart.serializers import CouponSerializer
 
 
+def _guest_key(request):
+    """
+    Stable id for a guest's cart. Prefer the client-supplied X-Guest-Cart header
+    (cookie-free, works cross-domain); fall back to the Django session key.
+    """
+    return request.headers.get('X-Guest-Cart') or request.session.session_key
+
+
 def get_cart(request):
-    """Get or create cart for user/session, merging guest cart if needed."""
-    import logging
-    logger = logging.getLogger(__name__)
-    
+    """Get or create cart for user/guest, merging a guest cart into the user cart on login."""
+    guest_key = _guest_key(request)
+
     if request.user.is_authenticated:
-        # Get or create user cart
-        user_cart, created = Cart.objects.get_or_create(user=request.user)
-        
-        session_id = request.session.session_key
-        logger.info(f"Authenticated user {request.user.id}, session: {session_id}, user cart created: {created}")
-        
-        # Try to merge guest cart (whether user cart was just created or not)
-        if session_id:
-            try:
-                # Find guest cart from session
-                guest_cart = Cart.objects.get(session_id=session_id, user__isnull=True)
-                logger.info(f"Found guest cart {guest_cart.id} with {guest_cart.items.count()} items")
-                
-                # Merge items from guest cart to user cart
-                merged_count = 0
+        user_cart, _ = Cart.objects.get_or_create(user=request.user)
+
+        # Merge a guest cart (by header or session) into the user's cart on login.
+        if guest_key:
+            guest_cart = Cart.objects.filter(session_id=guest_key, user__isnull=True).first()
+            if guest_cart:
                 for guest_item in guest_cart.items.all():
-                    user_item, item_created = CartItem.objects.get_or_create(
+                    if guest_item.product_id is None:
+                        continue  # custom designs never live in a guest cart
+                    user_item, created = CartItem.objects.get_or_create(
                         cart=user_cart,
                         product=guest_item.product,
-                        defaults={'quantity': guest_item.quantity}
+                        defaults={'quantity': guest_item.quantity},
                     )
-                    if not item_created:
-                        # Item already exists, add quantities
+                    if not created:
                         user_item.quantity += guest_item.quantity
                         user_item.save()
-                    merged_count += 1
-                
-                logger.info(f"Merged {merged_count} items from guest cart to user cart")
-                # Delete guest cart after merge
                 guest_cart.delete()
-                
-            except Cart.DoesNotExist:
-                logger.info("No guest cart found to merge")
-        else:
-            logger.info("No session ID available for merge")
-        
+
         return user_cart
-    else:
-        session_id = request.session.session_key
-        if not session_id:
-            request.session.create()
-            session_id = request.session.session_key
-        cart, _ = Cart.objects.get_or_create(session_id=session_id, user__isnull=True)
-        logger.info(f"Guest cart {cart.id}, session: {session_id}, items: {cart.items.count()}")
-        return cart
+
+    # Guest: key off the header; only touch the session if no header was sent.
+    if not guest_key:
+        request.session.create()
+        guest_key = request.session.session_key
+    cart, _ = Cart.objects.get_or_create(session_id=guest_key, user__isnull=True)
+    return cart
 
 
 # =============================================================================

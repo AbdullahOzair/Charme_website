@@ -60,13 +60,27 @@ const api = axios.create({
   withCredentials: true, // Send cookies for session-based cart
 });
 
-// Request interceptor - Add auth token
+// Stable per-browser guest id so the guest cart works across domains without
+// relying on cross-site session cookies (blocked by SameSite/third-party rules).
+const getGuestCartId = () => {
+  let id = localStorage.getItem('guest_cart_id');
+  if (!id) {
+    id =
+      globalThis.crypto?.randomUUID?.() ??
+      `g_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+    localStorage.setItem('guest_cart_id', id);
+  }
+  return id;
+};
+
+// Request interceptor - Add auth token + guest cart id
 api.interceptors.request.use(
   (config) => {
     const token = getStoredToken('access_token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    config.headers['X-Guest-Cart'] = getGuestCartId();
     return config;
   },
   (error) => Promise.reject(error)
