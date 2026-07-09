@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { HeartIcon, TrashIcon } from '@heroicons/react/24/outline'
 import { useWishlistStore } from '../stores/wishlistStore'
@@ -7,7 +8,11 @@ import toast from 'react-hot-toast'
 const WishlistPage = () => {
   const items = useWishlistStore((state) => state.items)
   const removeItem = useWishlistStore((state) => state.removeItem)
+  const purgeExpired = useWishlistStore((state) => state.purgeExpired)
   const { addItem } = useCartStore()
+
+  // Drop items older than 30 days whenever the page is opened.
+  useEffect(() => { purgeExpired() }, [purgeExpired])
 
   const handleRemove = (productId) => {
     removeItem(productId)

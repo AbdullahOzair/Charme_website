@@ -15,6 +15,7 @@ from .serializers import (
     CustomDesignSerializer,
     SaveDesignSerializer,
 )
+from .cleanup import delete_expired_designs, maybe_global_sweep
 
 
 class JewelryCategoryViewSet(viewsets.ReadOnlyModelViewSet):
@@ -42,6 +43,8 @@ class CustomDesignViewSet(viewsets.ModelViewSet):
     ordering = ['-updated_at']
 
     def get_queryset(self):
+        if self.action == 'list':
+            delete_expired_designs(user=self.request.user)
         return CustomDesign.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
@@ -94,6 +97,10 @@ class SavedDesignsListView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
+        # Auto-expire: daily global sweep (throttled) + this user's expired designs.
+        maybe_global_sweep()
+        delete_expired_designs(user=request.user)
+
         designs = (
             CustomDesign.objects
             .filter(user=request.user)

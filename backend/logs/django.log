@@ -18908,3 +18908,4 @@ ERROR 2026-07-09 01:58:46,554 basehttp 21832 36076 "GET /api/v1/products/?search
 WARNING 2026-07-09 03:04:52,446 log 27572 26784 Bad Request: /api/v1/auth/password-reset/
 WARNING 2026-07-09 10:31:22,496 log 7904 35236 Bad Request: /api/v1/auth/password-reset/confirm/
 WARNING 2026-07-09 10:31:24,014 log 7904 35236 Bad Request: /api/v1/auth/password-reset/confirm/
+INFO 2026-07-09 11:11:51,082 cleanup 5816 1676 Deleted 1 expired design(s).
