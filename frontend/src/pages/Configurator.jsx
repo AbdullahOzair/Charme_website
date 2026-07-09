@@ -160,12 +160,16 @@ const Configurator = () => {
         <BraceletReorder onOpenBeadPanel={handleOpenBeadPanel} />
       )}
 
-      {/* ── Main Layout ── (stacks on mobile, side-by-side from lg) */}
-      <div className="flex flex-col lg:flex-row flex-1 lg:overflow-hidden">
-        {/* Left Sidebar */}
+      {/* ── Main Layout ──
+          Mobile: stacked, Viewer first (product-first) then Controls; page scrolls.
+          Tablet (md): sidebar 40% / viewer 60%.  Desktop (lg): sidebar 32% / viewer ~68%.
+          From md up it's an app-shell (fixed viewport height): the viewer column is
+          pinned (always visible) and the sidebar is the single scroll region. */}
+      <div className="flex flex-col md:flex-row flex-1 md:h-[calc(100vh-3.5rem)] md:overflow-hidden">
+        {/* Left Sidebar (controls) */}
         <aside
           ref={asideRef}
-          className="w-full lg:w-72 xl:w-80 flex-shrink-0 bg-white border-b lg:border-b-0 lg:border-r border-neutral-200 lg:overflow-y-auto"
+          className="config-scroll order-2 md:order-none w-full md:w-2/5 lg:w-[32%] xl:w-[30%] flex-shrink-0 bg-white border-t md:border-t-0 md:border-r border-neutral-200 md:overflow-y-auto"
         >
           <div className="p-4">
             <ConfiguratorSidebar />
@@ -177,18 +181,19 @@ const Configurator = () => {
           )}
         </aside>
 
-        {/* Right Panel — 3D Viewer
+        {/* Right Panel — 3D Viewer (pinned column)
             pointer-events-none while any modal is open so the canvas cannot
             intercept clicks meant for the modal buttons above it. */}
         <main
           ref={viewerContainerRef}
-          className={`flex-1 relative overflow-hidden min-h-[60vh] lg:min-h-[500px]${
+          className={`order-1 md:order-none flex-1 relative overflow-hidden h-[55vh] md:h-full${
             editingBeadIndex !== null || showChainPicker || showSaveModal
               ? ' pointer-events-none'
               : ''
           }`}
         >
-          <div className="absolute inset-0 w-full h-full">
+          {/* Consistent canvas padding: 16px mobile / 24px desktop */}
+          <div className="absolute inset-4 lg:inset-6">
             <JewelryViewer />
           </div>
           <BackgroundPicker />

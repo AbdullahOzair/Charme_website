@@ -119,7 +119,7 @@ const CharmPanel = ({ charms }) => {
           No charms available.
         </p>
       ) : (
-        <div className="config-scroll grid grid-cols-3 gap-2 max-h-[22rem] overflow-y-auto pr-1">
+        <div className="grid grid-cols-2 gap-3">
           {charms.map((charm) => {
             const count = countOf(charm);
             const options = buildOptions(charm);
@@ -130,40 +130,41 @@ const CharmPanel = ({ charms }) => {
             return (
               <div
                 key={charm.id}
-                className={`relative flex flex-col items-center rounded-lg border p-2 text-center transition-all duration-150 ${
+                className={`group relative flex flex-col rounded-xl border p-2.5 text-center transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 ${
                   count > 0
-                    ? 'border-neutral-900 bg-neutral-50 ring-1 ring-neutral-900'
-                    : 'border-neutral-200 bg-white'
+                    ? 'border-[#B76E79] ring-2 ring-[#B76E79] bg-[#FBF3F4]'
+                    : 'border-neutral-200 bg-white hover:border-neutral-300'
                 }`}
               >
+                {/* Charm image is the focus — larger image-to-text ratio */}
                 {thumb ? (
                   <img
                     src={thumb}
                     alt={charm.name}
-                    className="w-10 h-10 object-contain rounded-md mb-1"
+                    className="w-full aspect-square object-contain rounded-lg mb-2"
                   />
                 ) : (
-                  <div className="w-10 h-10 rounded-md bg-neutral-100 mb-1" />
+                  <div className="w-full aspect-square rounded-lg bg-neutral-100 mb-2" />
                 )}
-                <p className="text-xs text-neutral-800 font-medium leading-tight line-clamp-2">
+                <p className="text-sm text-neutral-800 font-medium leading-tight line-clamp-1">
                   {charm.name}
                 </p>
                 <p className="text-[10px] text-neutral-400 leading-none mb-0.5">
                   {TYPE_LABEL[charm.charm_type] ?? 'Dangle'}
                   {charm.is_movable === false ? ' · fixed' : ''}
                 </p>
-                <p className="text-xs text-neutral-500 mb-1">Rs. {charm.price}</p>
+                <p className="text-xs text-neutral-500 mb-2">Rs. {charm.price}</p>
 
                 {/* Color swatches (main image + variants), shown when >1 option */}
                 {options.length > 1 && (
-                  <div className="flex flex-wrap justify-center gap-1 mb-1.5">
+                  <div className="flex flex-wrap justify-center gap-1.5 mb-2">
                     {options.map((o) => (
                       <button
                         key={o.key}
                         onClick={() => setChosenOption((m) => ({ ...m, [charm.id]: o.key }))}
                         title={o.color_name}
                         aria-label={o.color_name}
-                        className={`w-4 h-4 rounded-full border transition-transform hover:scale-110 ${
+                        className={`w-5 h-5 rounded-full border transition-transform hover:scale-110 ${
                           opt?.key === o.key
                             ? 'ring-2 ring-offset-1 ring-neutral-900 border-white'
                             : 'border-neutral-300'
@@ -174,37 +175,39 @@ const CharmPanel = ({ charms }) => {
                   </div>
                 )}
 
-                {count === 0 ? (
-                  <button
-                    onClick={addSelected}
-                    disabled={atMax}
-                    title={atMax ? `Max ${MAX_CHARMS} charms` : `Add ${charm.name}`}
-                    className="w-full text-xs py-1 rounded bg-neutral-900 text-white hover:bg-neutral-700 transition disabled:opacity-40 disabled:cursor-not-allowed"
-                  >
-                    + Add
-                  </button>
-                ) : (
-                  <div className="flex items-center justify-center gap-1.5 w-full">
-                    <button
-                      onClick={() => removeOne(charm)}
-                      title={`Remove ${charm.name}`}
-                      className="w-6 h-6 rounded bg-neutral-200 text-neutral-800 text-sm font-bold leading-none hover:bg-neutral-300 transition flex items-center justify-center"
-                    >
-                      −
-                    </button>
-                    <span className="text-xs font-semibold text-neutral-900 min-w-[1.25rem] text-center">
-                      {count}
-                    </span>
+                <div className="mt-auto">
+                  {count === 0 ? (
                     <button
                       onClick={addSelected}
                       disabled={atMax}
                       title={atMax ? `Max ${MAX_CHARMS} charms` : `Add ${charm.name}`}
-                      className="w-6 h-6 rounded bg-neutral-900 text-white text-sm font-bold leading-none hover:bg-neutral-700 transition flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="w-full min-h-[44px] text-xs font-semibold rounded-lg bg-neutral-900 text-white hover:bg-neutral-700 transition disabled:opacity-40 disabled:cursor-not-allowed"
                     >
-                      +
+                      + Add
                     </button>
-                  </div>
-                )}
+                  ) : (
+                    <div className="flex items-center justify-between gap-2 w-full">
+                      <button
+                        onClick={() => removeOne(charm)}
+                        aria-label={`Remove ${charm.name}`}
+                        className="w-11 h-11 rounded-lg bg-neutral-100 text-neutral-800 text-lg font-bold leading-none hover:bg-neutral-200 transition flex items-center justify-center"
+                      >
+                        −
+                      </button>
+                      <span className="text-sm font-semibold text-neutral-900 min-w-[1.5rem] text-center">
+                        {count}
+                      </span>
+                      <button
+                        onClick={addSelected}
+                        disabled={atMax}
+                        aria-label={`Add ${charm.name}`}
+                        className="w-11 h-11 rounded-lg bg-neutral-900 text-white text-lg font-bold leading-none hover:bg-neutral-700 transition flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed"
+                      >
+                        +
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             );
           })}

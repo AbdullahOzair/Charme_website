@@ -85,71 +85,71 @@ const BeadPanel = ({ beads, materials, colors }) => {
           No beads match the current filters.
         </p>
       ) : (
-        <div className="config-scroll grid grid-cols-3 gap-2 max-h-[22rem] overflow-y-auto pr-1">
+        <div className="grid grid-cols-2 gap-3">
           {filtered.map((bead) => {
             const count = getCount(bead);
-            const canAdd = !atMax || count > 0; // can still remove even at max
 
             return (
               <div
                 key={bead.id}
-                className={`relative flex flex-col items-center rounded-lg border p-2 text-center transition-all duration-150 ${
+                className={`group relative flex flex-col rounded-xl border p-2.5 text-center transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 ${
                   count > 0
-                    ? 'border-neutral-900 bg-neutral-50 ring-1 ring-neutral-900'
-                    : 'border-neutral-200 bg-white'
+                    ? 'border-[#B76E79] ring-2 ring-[#B76E79] bg-[#FBF3F4]'
+                    : 'border-neutral-200 bg-white hover:border-neutral-300'
                 }`}
               >
-                {/* Thumbnail — prefer the uploaded photo (transparent PNG ok),
-                    fall back to a flat color swatch only when no image exists */}
+                {/* Image area — the visual anchor of the card */}
                 {(bead.image || bead.thumbnail) ? (
                   <img
                     src={bead.image || bead.thumbnail}
                     alt={bead.name}
-                    className="w-10 h-10 object-contain rounded-md mb-1 bg-white border border-neutral-200"
+                    className="w-full aspect-square object-contain rounded-lg mb-2 bg-white border border-neutral-100"
                   />
                 ) : (
                   <div
-                    className="w-10 h-10 rounded-md mb-1 border border-neutral-200"
-                    style={{
-                      backgroundColor: bead.color?.hex_code ?? '#e5e5e5',
-                    }}
+                    className="w-full aspect-square rounded-lg mb-2 border border-neutral-100"
+                    style={{ backgroundColor: bead.color?.hex_code ?? '#e5e5e5' }}
                   />
                 )}
 
-                <p className="text-xs text-neutral-800 font-medium leading-tight line-clamp-2 mb-0.5">
+                <p className="text-sm text-neutral-800 font-medium leading-tight line-clamp-2 mb-0.5">
                   {bead.name}
                 </p>
-                <p className="text-xs text-neutral-500 mb-1">Rs. {bead.price}</p>
+                <p className="text-xs text-neutral-500 mb-2">Rs. {bead.price}</p>
 
-                {/* Quantity controls */}
-                {count === 0 ? (
-                  <button
-                    onClick={() => addBead(bead)}
-                    disabled={atMax}
-                    className="w-full mt-0.5 text-xs py-1 rounded bg-neutral-900 text-white hover:bg-neutral-700 transition disabled:opacity-40 disabled:cursor-not-allowed"
-                  >
-                    + Add
-                  </button>
-                ) : (
-                  <div className="flex items-center justify-center gap-1.5 mt-0.5 w-full">
-                    <button
-                      onClick={() => removeBead(bead)}
-                      className="w-6 h-6 rounded bg-neutral-200 text-neutral-800 text-sm font-bold leading-none hover:bg-neutral-300 transition flex items-center justify-center"
-                    >
-                      −
-                    </button>
-                    <span className="text-xs font-semibold text-neutral-900 min-w-[1.25rem] text-center">
-                      {count}
-                    </span>
+                {/* Quantity controls (min 44px touch targets) */}
+                <div className="mt-auto">
+                  {count === 0 ? (
                     <button
                       onClick={() => addBead(bead)}
                       disabled={atMax}
-                      className="w-6 h-6 rounded bg-neutral-900 text-white text-sm font-bold leading-none hover:bg-neutral-700 transition flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="w-full min-h-[44px] text-xs font-semibold rounded-lg bg-neutral-900 text-white hover:bg-neutral-700 transition disabled:opacity-40 disabled:cursor-not-allowed"
                     >
-                      +
+                      + Add
                     </button>
-                  </div>
-                )}
+                  ) : (
+                    <div className="flex items-center justify-between gap-2 w-full">
+                      <button
+                        onClick={() => removeBead(bead)}
+                        aria-label={`Remove ${bead.name}`}
+                        className="w-11 h-11 rounded-lg bg-neutral-100 text-neutral-800 text-lg font-bold leading-none hover:bg-neutral-200 transition flex items-center justify-center"
+                      >
+                        −
+                      </button>
+                      <span className="text-sm font-semibold text-neutral-900 min-w-[1.5rem] text-center">
+                        {count}
+                      </span>
+                      <button
+                        onClick={() => addBead(bead)}
+                        disabled={atMax}
+                        aria-label={`Add ${bead.name}`}
+                        className="w-11 h-11 rounded-lg bg-neutral-900 text-white text-lg font-bold leading-none hover:bg-neutral-700 transition flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed"
+                      >
+                        +
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             );
           })}

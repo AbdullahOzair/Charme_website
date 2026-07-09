@@ -140,7 +140,9 @@ const BraceletScene = memo(() => {
   );
 
   return (
-    <group position={[0, 0, 0]}>
+    // scale 0.72 → ~28% smaller so the full bracelet sits with margin in-frame.
+    // Uniform scale about the origin keeps bead angles and charm-drag math intact.
+    <group position={[0, 0, 0]} scale={0.72}>
       {/* Chain */}
       <Suspense fallback={null}>
         <ChainMesh
