@@ -75,9 +75,14 @@ const BraceletSceneContent = ({ controlsRef }) => {
 
     <BraceletScene />
 
-    <Suspense fallback={null}>
-      <Environment preset="studio" background={false} />
-    </Suspense>
+    {/* Environment loads an HDR from a CDN. If that fetch fails it must NOT
+        blank the whole canvas — the boundary drops the env map and the scene
+        keeps rendering with the lights above. */}
+    <EnvBoundary>
+      <Suspense fallback={null}>
+        <Environment preset="studio" background={false} />
+      </Suspense>
+    </EnvBoundary>
 
     <ViewerControls controlsRef={controlsRef} />
   </>
@@ -127,6 +132,16 @@ const SceneContent = ({ controlsRef, isHandView }) => {
   </>
   );
 };
+
+// ── Environment error boundary ──────────────────────────────────────────────
+// Renders nothing if the HDR fails to load, so a CDN hiccup never blanks the
+// canvas (the scene still has ambient/directional/point lights).
+class EnvBoundary extends Component {
+  state = { failed: false };
+  static getDerivedStateFromError() { return { failed: true }; }
+  componentDidCatch(err) { console.warn('Environment map failed to load:', err?.message ?? err); }
+  render() { return this.state.failed ? null : this.props.children; }
+}
 
 // ── Canvas error boundary ───────────────────────────────────────────────────
 class CanvasErrorBoundary extends Component {

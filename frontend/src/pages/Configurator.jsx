@@ -165,7 +165,7 @@ const Configurator = () => {
           Tablet (md): sidebar 40% / viewer 60%.  Desktop (lg): sidebar 32% / viewer ~68%.
           From md up it's an app-shell (fixed viewport height): the viewer column is
           pinned (always visible) and the sidebar is the single scroll region. */}
-      <div className="flex flex-col md:flex-row flex-1 md:h-[calc(100vh-3.5rem)] md:overflow-hidden">
+      <div className="flex flex-col md:flex-row flex-1 md:min-h-0 md:overflow-hidden">
         {/* Left Sidebar (controls) */}
         <aside
           ref={asideRef}
@@ -186,7 +186,7 @@ const Configurator = () => {
             intercept clicks meant for the modal buttons above it. */}
         <main
           ref={viewerContainerRef}
-          className={`order-1 md:order-none flex-1 relative overflow-hidden h-[55vh] md:h-full${
+          className={`order-1 md:order-none flex-1 relative overflow-hidden min-h-[55vh] md:min-h-0${
             editingBeadIndex !== null || showChainPicker || showSaveModal
               ? ' pointer-events-none'
               : ''
