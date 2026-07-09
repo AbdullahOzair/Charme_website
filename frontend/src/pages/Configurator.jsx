@@ -160,12 +160,12 @@ const Configurator = () => {
         <BraceletReorder onOpenBeadPanel={handleOpenBeadPanel} />
       )}
 
-      {/* ── Main Layout ── */}
-      <div className="flex flex-1 overflow-hidden">
+      {/* ── Main Layout ── (stacks on mobile, side-by-side from lg) */}
+      <div className="flex flex-col lg:flex-row flex-1 lg:overflow-hidden">
         {/* Left Sidebar */}
         <aside
           ref={asideRef}
-          className="w-72 xl:w-80 flex-shrink-0 bg-white border-r border-neutral-200 overflow-y-auto"
+          className="w-full lg:w-72 xl:w-80 flex-shrink-0 bg-white border-b lg:border-b-0 lg:border-r border-neutral-200 lg:overflow-y-auto"
         >
           <div className="p-4">
             <ConfiguratorSidebar />
@@ -182,7 +182,7 @@ const Configurator = () => {
             intercept clicks meant for the modal buttons above it. */}
         <main
           ref={viewerContainerRef}
-          className={`flex-1 relative overflow-hidden min-h-[500px]${
+          className={`flex-1 relative overflow-hidden min-h-[60vh] lg:min-h-[500px]${
             editingBeadIndex !== null || showChainPicker || showSaveModal
               ? ' pointer-events-none'
               : ''

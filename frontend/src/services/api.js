@@ -120,6 +120,8 @@ export const authService = {
   getProfile: () => api.get('/auth/profile/'),
   updateProfile: (data) => api.put('/auth/profile/', data),
   changePassword: (data) => api.post('/auth/change-password/', data),
+  requestPasswordReset: (data) => api.post('/auth/password-reset/request/', data),
+  confirmPasswordReset: (data) => api.post('/auth/password-reset/confirm/', data),
 };
 
 // Products

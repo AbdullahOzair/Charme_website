@@ -1,5 +1,8 @@
+from datetime import timedelta
+
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
+from django.utils import timezone
 
 
 class UserManager(BaseUserManager):
@@ -71,8 +74,37 @@ class Address(models.Model):
     def save(self, *args, **kwargs):
         if self.is_default:
             Address.objects.filter(
-                user=self.user, 
-                address_type=self.address_type, 
+                user=self.user,
+                address_type=self.address_type,
                 is_default=True
             ).update(is_default=False)
         super().save(*args, **kwargs)
+
+
+class PasswordResetCode(models.Model):
+    """
+    One-time 6-digit code emailed to a user to reset their password.
+    The code is stored hashed; it expires after EXPIRY_MINUTES, is single-use,
+    and allows at most MAX_ATTEMPTS verification tries.
+    """
+    EXPIRY_MINUTES = 10
+    MAX_ATTEMPTS = 5
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reset_codes')
+    code_hash = models.CharField(max_length=128)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_used = models.BooleanField(default=False)
+    attempts = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'Reset code for {self.user.email} ({"used" if self.is_used else "active"})'
+
+    @property
+    def is_expired(self):
+        return timezone.now() > self.created_at + timedelta(minutes=self.EXPIRY_MINUTES)
+
+    def is_valid(self):
+        return (not self.is_used) and (not self.is_expired) and (self.attempts < self.MAX_ATTEMPTS)

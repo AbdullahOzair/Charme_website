@@ -5,8 +5,6 @@ import useConfiguratorStore from '../../stores/configuratorStore';
 import useJewelryAssets from '../../hooks/useJewelryAssets';
 import CategorySelector from './CategorySelector';
 import LengthSelector from './LengthSelector';
-import MaterialSelector from './MaterialSelector';
-import ColorPicker from './ColorPicker';
 import BeadPanel from './BeadPanel';
 import ChainSelector from './ChainSelector';
 import CharmPanel from './CharmPanel';
@@ -15,8 +13,6 @@ import PriceCalculator from './PriceCalculator';
 const SECTION_IDS = [
   'category',
   'length',
-  'material',
-  'color',
   'beads',
   'chain',
   'charms',
@@ -85,14 +81,6 @@ const ConfiguratorSidebar = () => {
 
       <Section id="length" label="Bracelet Length" open={open.length} onToggle={toggle}>
         <LengthSelector />
-      </Section>
-
-      <Section id="material" label="Material" open={open.material} onToggle={toggle}>
-        <MaterialSelector materials={materials} />
-      </Section>
-
-      <Section id="color" label="Color" open={open.color} onToggle={toggle}>
-        <ColorPicker colors={colors} />
       </Section>
 
       <Section id="beads" label="Beads" open={open.beads} onToggle={toggle}>

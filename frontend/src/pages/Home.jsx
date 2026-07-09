@@ -285,7 +285,7 @@ const Home = () => {
               </Link>
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
                 { icon: Sparkles, label: 'AI Prompt',    desc: 'Describe your style in words' },
                 { icon: Gem,      label: '3D Preview',   desc: 'See your design in real time' },

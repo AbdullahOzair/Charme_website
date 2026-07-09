@@ -57,6 +57,23 @@ class AddressSerializer(serializers.ModelSerializer):
 
 class ChangePasswordSerializer(serializers.Serializer):
     """Change password serializer."""
-    
+
     old_password = serializers.CharField(required=True)
     new_password = serializers.CharField(required=True, min_length=8)
+
+
+class PasswordResetRequestSerializer(serializers.Serializer):
+    """Step 1 — request a reset code for an email."""
+    email = serializers.EmailField(required=True)
+
+
+class PasswordResetConfirmSerializer(serializers.Serializer):
+    """Step 2 — verify the code and set a new password."""
+    email = serializers.EmailField(required=True)
+    code = serializers.CharField(required=True, min_length=6, max_length=6)
+    new_password = serializers.CharField(required=True, min_length=8)
+
+    def validate_new_password(self, value):
+        from django.contrib.auth.password_validation import validate_password
+        validate_password(value)
+        return value

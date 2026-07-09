@@ -27,16 +27,26 @@ def _resolve_design_details(design):
     if length:
         details['bracelet_length_cm'] = length
 
-    # Beads
-    bead_ids = cfg.get('selectedBeads', [])
+    # Beads — entries are bead ids (accept {id:...} objects too, just in case)
+    from collections import Counter
+
+    def _ids(entries):
+        out = []
+        for e in entries or []:
+            cid = e.get('id') if isinstance(e, dict) else e
+            if cid is not None:
+                out.append(cid)
+        return out
+
+    bead_ids = _ids(cfg.get('selectedBeads', []))
     if bead_ids:
-        from collections import Counter
         id_counts = Counter(bead_ids)
         beads_qs = Bead.objects.filter(id__in=id_counts.keys()).select_related('color', 'material')
         beads_info = []
         for bead in beads_qs:
             count = id_counts[bead.id]
             beads_info.append({
+                'category': 'Bead',
                 'name': bead.name,
                 'count': count,
                 'price_each': str(bead.price),
@@ -60,16 +70,16 @@ def _resolve_design_details(design):
         except Chain.DoesNotExist:
             pass
 
-    # Charms
-    charm_ids = cfg.get('selectedCharms', [])
+    # Charms — entries may be bare ids (legacy) or {id, angle, variantId} objects
+    charm_ids = _ids(cfg.get('selectedCharms', []))
     if charm_ids:
-        from collections import Counter
         id_counts = Counter(charm_ids)
         charms_qs = Charm.objects.filter(id__in=id_counts.keys())
         charms_info = []
         for charm in charms_qs:
             count = id_counts[charm.id]
             charms_info.append({
+                'category': 'Charm',
                 'name': charm.name,
                 'count': count,
                 'price_each': str(charm.price),

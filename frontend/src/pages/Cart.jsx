@@ -238,15 +238,27 @@ const CustomDesignCartItem = ({ item, onRemove }) => {
             </div>
           )}
 
-          {/* Price breakdown */}
-          <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500">
-            {d.chain?.price && (
-              <span>Chain: Rs. {fmt(d.chain.price)}</span>
-            )}
-            {d.charms?.map((c, i) => (
-              <span key={i}>{c.name} ×{c.count}: Rs. {fmt(c.subtotal)}</span>
-            ))}
-          </div>
+          {/* Charm breakdown */}
+          {d.charms?.length > 0 && (
+            <div className="mt-2">
+              <p className="text-xs font-medium text-gray-700 mb-1">Charm breakdown:</p>
+              <div className="flex flex-wrap gap-1.5">
+                {d.charms.map((c, i) => (
+                  <span key={i} className="text-xs bg-neutral-100 text-neutral-700 px-2 py-0.5 rounded">
+                    {c.name} ×{c.count} — Rs. {fmt(c.subtotal)}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Chain */}
+          {d.chain?.price && (
+            <div className="mt-2 text-xs text-gray-500">
+              <span className="font-medium text-gray-700">Chain: </span>
+              {d.chain.name} — Rs. {fmt(d.chain.price)}
+            </div>
+          )}
 
           <button
             onClick={() => onRemove(item.id)}

@@ -29,6 +29,12 @@
     scroll-behavior: smooth;
   }
 
+  html, body {
+    /* Guard against any element causing horizontal scroll on small screens */
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
   body {
     font-family: 'Quicksand', sans-serif;
     font-weight: 400;
@@ -36,6 +42,11 @@
     background-color: #FFFEF9;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+  }
+
+  /* Media never overflows its container on any breakpoint */
+  img, svg, video, canvas {
+    max-width: 100%;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -221,7 +232,13 @@
   .container-custom {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 16px;
+  }
+
+  @media (min-width: 640px) {
+    .container-custom {
+      padding: 0 24px;
+    }
   }
 
   @media (min-width: 768px) {

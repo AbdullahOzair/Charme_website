@@ -5,14 +5,25 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import get_user_model
 
-from .models import Address
+import logging
+import secrets
+
+from django.contrib.auth.hashers import make_password, check_password
+from django.core.mail import send_mail
+from django.conf import settings
+
+from .models import Address, PasswordResetCode
 from .serializers import (
-    UserSerializer, 
-    RegisterSerializer, 
+    UserSerializer,
+    RegisterSerializer,
     CustomTokenObtainPairSerializer,
     AddressSerializer,
     ChangePasswordSerializer,
+    PasswordResetRequestSerializer,
+    PasswordResetConfirmSerializer,
 )
+
+logger = logging.getLogger(__name__)
 
 User = get_user_model()
 
@@ -132,6 +143,90 @@ class ChangePasswordView(APIView):
         user.set_password(serializer.validated_data['new_password'])
         user.save()
         return Response({'detail': 'Password changed successfully'})
+
+
+GENERIC_RESET_MESSAGE = (
+    'If an account with that email exists, a 6-digit reset code has been sent to it.'
+)
+
+
+class PasswordResetRequestView(APIView):
+    """
+    Step 1 — email a 6-digit reset code to the account (if it exists).
+    Always returns a generic success so it can't reveal which emails are registered.
+    """
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        serializer = PasswordResetRequestSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        email = serializer.validated_data['email']
+
+        user = User.objects.filter(email__iexact=email).first()
+        if user:
+            # Invalidate any earlier unused codes, then issue a fresh one.
+            PasswordResetCode.objects.filter(user=user, is_used=False).update(is_used=True)
+            code = f'{secrets.randbelow(1_000_000):06d}'
+            PasswordResetCode.objects.create(user=user, code_hash=make_password(code))
+            try:
+                send_mail(
+                    subject='Your Charmé password reset code',
+                    message=(
+                        f'Your Charmé password reset code is: {code}\n\n'
+                        f'It expires in {PasswordResetCode.EXPIRY_MINUTES} minutes. '
+                        'If you did not request this, you can ignore this email.'
+                    ),
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[user.email],
+                    fail_silently=False,
+                )
+            except Exception as exc:  # noqa: BLE001
+                logger.error('Failed to send password reset email: %s', exc)
+
+        return Response({'detail': GENERIC_RESET_MESSAGE})
+
+
+class PasswordResetConfirmView(APIView):
+    """
+    Step 2 — verify the code and set the new password.
+    """
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        serializer = PasswordResetConfirmSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        email = serializer.validated_data['email']
+        code = serializer.validated_data['code']
+        new_password = serializer.validated_data['new_password']
+
+        invalid = Response(
+            {'detail': 'Invalid or expired code.'}, status=status.HTTP_400_BAD_REQUEST
+        )
+
+        user = User.objects.filter(email__iexact=email).first()
+        if not user:
+            return invalid
+
+        reset = (
+            PasswordResetCode.objects
+            .filter(user=user, is_used=False)
+            .order_by('-created_at')
+            .first()
+        )
+        if not reset or not reset.is_valid():
+            return invalid
+
+        if not check_password(code, reset.code_hash):
+            reset.attempts += 1
+            reset.save(update_fields=['attempts'])
+            return invalid
+
+        user.set_password(new_password)
+        user.save()
+        reset.is_used = True
+        reset.save(update_fields=['is_used'])
+
+        return Response({'detail': 'Password has been reset. You can now log in.'})
 
 
 class AddressListCreateView(generics.ListCreateAPIView):

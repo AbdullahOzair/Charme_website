@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useAuthStore from '../stores/authStore';
+import PasswordInput from '../components/common/PasswordInput';
 import toast from 'react-hot-toast';
 
 const Login = () => {
@@ -51,11 +52,10 @@ const Login = () => {
 
             <div>
               <label className="label">Password</label>
-              <input
-                type="password"
-                className="input"
+              <PasswordInput
                 placeholder="••••••••"
                 required
+                autoComplete="current-password"
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
               />

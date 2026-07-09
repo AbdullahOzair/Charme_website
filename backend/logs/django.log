@@ -16874,3 +16874,2037 @@ INFO 2026-07-07 15:14:22,544 basehttp 32572 25868 "GET /api/v1/cart/ HTTP/1.1" 2
 INFO 2026-07-07 15:14:22,569 basehttp 32572 25868 "GET /media/charms/12-removebg-preview_1.png HTTP/1.1" 304 0
 INFO 2026-07-07 15:14:25,541 basehttp 32572 25868 "GET /api/v1/products/?limit=12 HTTP/1.1" 200 1825
 INFO 2026-07-07 15:14:25,547 basehttp 32572 25868 "GET /api/v1/products/?limit=12 HTTP/1.1" 200 1825
+ERROR 2026-07-09 01:52:05,991 log 29800 35404 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+INFO 2026-07-09 01:52:23,162 views 6908 33900 Guest cart f9d843f4-8492-4fc5-8992-b31b74802c17, session: otn576l59cqqc3b4cwdjs7re35eejmuc, items: 0
+INFO 2026-07-09 01:57:55,325 autoreload 1944 34820 Watching for file changes with StatReloader
+INFO 2026-07-09 01:58:04,137 autoreload 1944 34820 D:\Websites\new\Charme_website\backend\apps\orders\serializers.py changed, reloading.
+INFO 2026-07-09 01:58:05,411 autoreload 21832 14424 Watching for file changes with StatReloader
+ERROR 2026-07-09 01:58:12,603 exceptions 21832 11168 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:12,876 log 21832 11168 Internal Server Error: /api/v1/products/
+ERROR 2026-07-09 01:58:12,876 basehttp 21832 11168 "GET /api/v1/products/?limit=12 HTTP/1.1" 500 119
+ERROR 2026-07-09 01:58:14,624 exceptions 21832 23608 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:14,628 log 21832 23608 Internal Server Error: /api/v1/cart/
+ERROR 2026-07-09 01:58:14,628 basehttp 21832 23608 "GET /api/v1/cart/ HTTP/1.1" 500 119
+ERROR 2026-07-09 01:58:14,903 exceptions 21832 11168 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:14,906 log 21832 11168 Internal Server Error: /api/v1/products/
+ERROR 2026-07-09 01:58:14,906 basehttp 21832 11168 "GET /api/v1/products/?limit=12 HTTP/1.1" 500 119
+ERROR 2026-07-09 01:58:18,728 exceptions 21832 23608 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:18,731 log 21832 23608 Internal Server Error: /api/v1/cart/
+ERROR 2026-07-09 01:58:18,732 basehttp 21832 23608 "GET /api/v1/cart/ HTTP/1.1" 500 119
+ERROR 2026-07-09 01:58:21,793 exceptions 21832 22152 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:21,796 log 21832 22152 Internal Server Error: /api/v1/products/
+ERROR 2026-07-09 01:58:21,797 basehttp 21832 22152 "GET /api/v1/products/?limit=12 HTTP/1.1" 500 119
+ERROR 2026-07-09 01:58:23,500 exceptions 21832 15216 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:23,503 log 21832 15216 Internal Server Error: /api/v1/customization/categories/
+ERROR 2026-07-09 01:58:23,504 basehttp 21832 15216 "GET /api/v1/customization/categories/ HTTP/1.1" 500 119
+ERROR 2026-07-09 01:58:23,797 exceptions 21832 22524 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:23,797 exceptions 21832 34692 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:23,797 exceptions 21832 32984 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:23,800 log 21832 22524 Internal Server Error: /api/v1/accessories/beads/
+ERROR 2026-07-09 01:58:23,803 log 21832 34692 Internal Server Error: /api/v1/accessories/chains/
+ERROR 2026-07-09 01:58:23,805 log 21832 32984 Internal Server Error: /api/v1/accessories/charms/
+INFO 2026-07-09 01:58:23,806 basehttp 21832 34692 - Broken pipe from ('127.0.0.1', 56268)
+INFO 2026-07-09 01:58:23,806 basehttp 21832 22524 - Broken pipe from ('127.0.0.1', 58773)
+INFO 2026-07-09 01:58:23,807 basehttp 21832 32984 - Broken pipe from ('127.0.0.1', 59513)
+ERROR 2026-07-09 01:58:23,844 exceptions 21832 36076 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:23,846 log 21832 36076 Internal Server Error: /api/v1/cart/
+ERROR 2026-07-09 01:58:23,847 basehttp 21832 36076 "GET /api/v1/cart/ HTTP/1.1" 500 119
+ERROR 2026-07-09 01:58:23,859 exceptions 21832 22152 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:23,863 log 21832 22152 Internal Server Error: /api/v1/accessories/materials/
+INFO 2026-07-09 01:58:23,863 basehttp 21832 22152 - Broken pipe from ('127.0.0.1', 55801)
+ERROR 2026-07-09 01:58:25,533 exceptions 21832 15216 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:25,536 log 21832 15216 Internal Server Error: /api/v1/accessories/colors/
+INFO 2026-07-09 01:58:25,536 basehttp 21832 15216 - Broken pipe from ('127.0.0.1', 61140)
+ERROR 2026-07-09 01:58:25,847 exceptions 21832 34500 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:25,850 log 21832 34500 Internal Server Error: /api/v1/products/
+ERROR 2026-07-09 01:58:25,851 basehttp 21832 34500 "GET /api/v1/products/?limit=12 HTTP/1.1" 500 119
+ERROR 2026-07-09 01:58:27,946 exceptions 21832 36076 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:27,950 log 21832 36076 Internal Server Error: /api/v1/cart/
+ERROR 2026-07-09 01:58:27,951 basehttp 21832 36076 "GET /api/v1/cart/ HTTP/1.1" 500 119
+ERROR 2026-07-09 01:58:32,929 exceptions 21832 34500 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:32,930 exceptions 21832 36076 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:32,933 log 21832 34500 Internal Server Error: /api/v1/customization/categories/
+ERROR 2026-07-09 01:58:32,935 log 21832 36076 Internal Server Error: /api/v1/cart/
+ERROR 2026-07-09 01:58:32,936 basehttp 21832 34500 "GET /api/v1/customization/categories/ HTTP/1.1" 500 119
+ERROR 2026-07-09 01:58:32,936 basehttp 21832 36076 "GET /api/v1/cart/ HTTP/1.1" 500 119
+ERROR 2026-07-09 01:58:33,227 exceptions 21832 2676 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:33,227 exceptions 21832 17112 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:33,227 exceptions 21832 26788 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:33,227 exceptions 21832 25356 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:33,230 log 21832 2676 Internal Server Error: /api/v1/accessories/chains/
+ERROR 2026-07-09 01:58:33,233 log 21832 17112 Internal Server Error: /api/v1/accessories/charms/
+ERROR 2026-07-09 01:58:33,235 log 21832 26788 Internal Server Error: /api/v1/accessories/beads/
+ERROR 2026-07-09 01:58:33,238 log 21832 25356 Internal Server Error: /api/v1/accessories/materials/
+INFO 2026-07-09 01:58:33,238 basehttp 21832 2676 - Broken pipe from ('127.0.0.1', 56447)
+INFO 2026-07-09 01:58:33,239 basehttp 21832 17112 - Broken pipe from ('127.0.0.1', 56213)
+INFO 2026-07-09 01:58:33,240 basehttp 21832 25356 - Broken pipe from ('127.0.0.1', 61745)
+INFO 2026-07-09 01:58:33,240 basehttp 21832 26788 - Broken pipe from ('127.0.0.1', 57260)
+ERROR 2026-07-09 01:58:34,970 exceptions 21832 36076 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:34,973 log 21832 36076 Internal Server Error: /api/v1/cart/
+ERROR 2026-07-09 01:58:34,974 basehttp 21832 36076 "GET /api/v1/cart/ HTTP/1.1" 500 119
+ERROR 2026-07-09 01:58:34,985 exceptions 21832 34500 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:34,989 log 21832 34500 Internal Server Error: /api/v1/accessories/colors/
+INFO 2026-07-09 01:58:34,989 basehttp 21832 34500 - Broken pipe from ('127.0.0.1', 59536)
+ERROR 2026-07-09 01:58:42,457 exceptions 21832 36076 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:42,462 log 21832 36076 Internal Server Error: /api/v1/cart/
+ERROR 2026-07-09 01:58:42,462 basehttp 21832 36076 "GET /api/v1/cart/ HTTP/1.1" 500 119
+ERROR 2026-07-09 01:58:42,781 exceptions 21832 21280 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:42,785 log 21832 21280 Internal Server Error: /api/v1/products/
+ERROR 2026-07-09 01:58:42,785 basehttp 21832 21280 "GET /api/v1/products/?limit=12 HTTP/1.1" 500 119
+ERROR 2026-07-09 01:58:44,492 exceptions 21832 36076 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:44,495 log 21832 36076 Internal Server Error: /api/v1/products/
+ERROR 2026-07-09 01:58:44,496 basehttp 21832 36076 "GET /api/v1/products/?search=&min_price=&max_price=&ordering=-created_at HTTP/1.1" 500 119
+ERROR 2026-07-09 01:58:44,631 exceptions 21832 15504 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:44,635 log 21832 15504 Internal Server Error: /api/v1/cart/
+ERROR 2026-07-09 01:58:44,635 basehttp 21832 15504 "GET /api/v1/cart/ HTTP/1.1" 500 119
+ERROR 2026-07-09 01:58:44,818 exceptions 21832 21280 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:44,821 log 21832 21280 Internal Server Error: /api/v1/products/
+ERROR 2026-07-09 01:58:44,821 basehttp 21832 21280 "GET /api/v1/products/?limit=12 HTTP/1.1" 500 119
+ERROR 2026-07-09 01:58:46,549 exceptions 21832 36076 Unhandled exception: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 29, in _decorator
+    return method(self, *args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 99, in _get
+    return self.client.get(key, default=default, version=version, client=client)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 260, in get
+    raise ConnectionInterrupted(connection=client) from e
+django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\views.py", line 365, in check_throttles
+    if not throttle.allow_request(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\rest_framework\throttling.py", line 123, in allow_request
+    self.history = self.cache.get(self.key, [])
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 92, in get
+    value = self._get(key, default, version, client)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\cache.py", line 36, in _decorator
+    raise e.__cause__
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\django_redis\client\default.py", line 258, in get
+    value = client.get(key)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\commands\core.py", line 3194, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 798, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\client.py", line 804, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 3163, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1007, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 132, in call_with_retry
+    raise error
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\retry.py", line 120, in call_with_retry
+    return do()
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1008, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "D:\Websites\new\Charme_website\backend\.venv\Lib\site-packages\redis\connection.py", line 1056, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+ERROR 2026-07-09 01:58:46,553 log 21832 36076 Internal Server Error: /api/v1/products/
+ERROR 2026-07-09 01:58:46,554 basehttp 21832 36076 "GET /api/v1/products/?search=&min_price=&max_price=&ordering=-created_at HTTP/1.1" 500 119
+WARNING 2026-07-09 03:04:52,446 log 27572 26784 Bad Request: /api/v1/auth/password-reset/
+WARNING 2026-07-09 10:31:22,496 log 7904 35236 Bad Request: /api/v1/auth/password-reset/confirm/
+WARNING 2026-07-09 10:31:24,014 log 7904 35236 Bad Request: /api/v1/auth/password-reset/confirm/

@@ -73,14 +73,14 @@ class CartItem(models.Model):
         default=1,
         validators=[MinValueValidator(1)]
     )
-    
+
     # Store price at time of adding (in case price changes)
     price_at_addition = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         validators=[MinValueValidator(Decimal('0.01'))]
     )
-    
+
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -107,7 +107,7 @@ class CartItem(models.Model):
     def is_available(self):
         """Check if product is still available."""
         return (
-            self.product.is_active and 
+            self.product.is_active and
             self.product.stock_quantity >= self.quantity
         )
 

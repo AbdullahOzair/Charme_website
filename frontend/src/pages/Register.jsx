@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuthStore from '../stores/authStore';
+import PasswordInput from '../components/common/PasswordInput';
 import toast from 'react-hot-toast';
 
 const Register = () => {
@@ -94,12 +95,11 @@ const Register = () => {
 
             <div>
               <label className="label">Password</label>
-              <input
-                type="password"
-                className="input"
+              <PasswordInput
                 placeholder="••••••••"
                 required
                 minLength={8}
+                autoComplete="new-password"
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
               />
@@ -107,12 +107,11 @@ const Register = () => {
 
             <div>
               <label className="label">Confirm Password</label>
-              <input
-                type="password"
-                className="input"
+              <PasswordInput
                 placeholder="••••••••"
                 required
                 minLength={8}
+                autoComplete="new-password"
                 value={formData.password_confirm}
                 onChange={(e) => setFormData({ ...formData, password_confirm: e.target.value })}
               />
